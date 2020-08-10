@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "hello world",
+            "invocationName": "baby buddy",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -16,25 +16,661 @@
                     "samples": []
                 },
                 {
-                    "name": "HelloWorldIntent",
-                    "slots": [],
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "StartFeedingIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
                     "samples": [
-                        "hello",
-                        "how are you",
-                        "say hi world",
-                        "say hi",
-                        "hi",
-                        "say hello world",
-                        "say hello"
+                        "start feeding",
+                        "start feeding for {Name}"
                     ]
                 },
                 {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
+                    "name": "StopFeedingIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery"
+                        },
+                        {
+                            "name": "Type",
+                            "type": "FEEDING_TYPE",
+                            "samples": [
+                                "{Type}"
+                            ]
+                        },
+                        {
+                            "name": "Method",
+                            "type": "FEEDING_METHOD",
+                            "samples": [
+                                "{Method}"
+                            ]
+                        },
+                        {
+                            "name": "Amount",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{Amount} ounce",
+                                "{Amount} ounces",
+                                "{Amount}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "stop feeding",
+                        "stop feeding for {Name}"
+                    ]
+                },
+                {
+                    "name": "StartSleepingIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "start sleeping for {Name}",
+                        "start sleeping"
+                    ]
+                },
+                {
+                    "name": "StopSleepingIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "stop sleeping for {Name}",
+                        "stop sleeping"
+                    ]
+                },
+                {
+                    "name": "RecordDiaperChangeIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery"
+                        },
+                        {
+                            "name": "Wet",
+                            "type": "WET_TYPE",
+                            "samples": [
+                                "{Wet}"
+                            ]
+                        },
+                        {
+                            "name": "Solid",
+                            "type": "SOLID_TYPE",
+                            "samples": [
+                                "{Solid}"
+                            ]
+                        },
+                        {
+                            "name": "Color",
+                            "type": "POOP_COLOR",
+                            "samples": [
+                                "{Color} "
+                            ]
+                        },
+                        {
+                            "name": "Amount",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{Amount} ounce",
+                                "{Amount} ounces",
+                                "{Amount}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "log diaper change for {Name}",
+                        "record diaper change for {Name}",
+                        "diaper change for {Name}",
+                        "start diaper change for {Name}",
+                        "that {Name} went poopy",
+                        "start diaper change",
+                        "diaper change",
+                        "record diaper change",
+                        "log diaper change"
+                    ]
+                },
+                {
+                    "name": "StartTummyTimeIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "start tummy time for {Name}",
+                        "start tummy time"
+                    ]
+                },
+                {
+                    "name": "StopTummyTimeIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "stop tummy time for {Name}",
+                        "stop tummy time"
+                    ]
+                },
+                {
+                    "name": "CurrentTimerIntent",
+                    "slots": [
+                        {
+                            "name": "Timer",
+                            "type": "TIMER_TYPE",
+                            "samples": [
+                                "{Timer} timer",
+                                "{Timer}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "timer status for  {Timer}",
+                        "timer status",
+                        "what is the status of my  {Timer}  timer"
+                    ]
+                },
+                {
+                    "name": "CancelTimerIntent",
+                    "slots": [
+                        {
+                            "name": "Timer",
+                            "type": "TIMER_TYPE",
+                            "samples": [
+                                "{Timer} timer",
+                                "{Timer}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "cancel {Timer} timer",
+                        "cancel timer for {Timer}",
+                        "cancel timer"
+                    ]
+                },
+                {
+                    "name": "LastFeedingIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "when is the last time {Name} ate",
+                        "when was the last feeding",
+                        "when was the last feeding for {Name}",
+                        "when was the last time {Name} ate",
+                        "when was the last time {Name} was fed",
+                        "when did {Name} last eat",
+                        "when did {Name} eat last"
+                    ]
                 }
             ],
-            "types": []
-        }
+            "types": [
+                {
+                    "name": "FEEDING_TYPE",
+                    "values": [
+                        {
+                            "id": "FORTIFIED_BREAST_MILK",
+                            "name": {
+                                "value": "fortified breast milk",
+                                "synonyms": [
+                                    "fortified"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "FORMULA",
+                            "name": {
+                                "value": "formula"
+                            }
+                        },
+                        {
+                            "id": "BREAST_MILK",
+                            "name": {
+                                "value": "breast milk",
+                                "synonyms": [
+                                    "breast"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "FEEDING_METHOD",
+                    "values": [
+                        {
+                            "id": "BOTH_BREASTS",
+                            "name": {
+                                "value": "both breasts",
+                                "synonyms": [
+                                    "both"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "RIGHT_BREAST",
+                            "name": {
+                                "value": "right breast",
+                                "synonyms": [
+                                    "right"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "LEFT_BREAST",
+                            "name": {
+                                "value": "left breast",
+                                "synonyms": [
+                                    "left"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "BOTTLE",
+                            "name": {
+                                "value": "bottle"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "WET_TYPE",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "no",
+                                "synonyms": [
+                                    "negative",
+                                    "false"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "yes",
+                                "synonyms": [
+                                    "obviously",
+                                    "of course",
+                                    "true",
+                                    "yeah"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "SOLID_TYPE",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "no",
+                                "synonyms": [
+                                    "false",
+                                    "negative"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "yes",
+                                "synonyms": [
+                                    "obviously",
+                                    "of course",
+                                    "affirmative",
+                                    "yeah"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "POOP_COLOR",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "yellow"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "green"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "brown"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "black"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TIMER_TYPE",
+                    "values": [
+                        {
+                            "id": "sleeping",
+                            "name": {
+                                "value": "sleeping",
+                                "synonyms": [
+                                    "napping",
+                                    "nap",
+                                    "sleep"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "tummy_time",
+                            "name": {
+                                "value": "tummy time",
+                                "synonyms": [
+                                    "tummy"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "feeding",
+                            "name": {
+                                "value": "feeding",
+                                "synonyms": [
+                                    "eating",
+                                    "eat",
+                                    "feed"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "StartFeedingIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                },
+                {
+                    "name": "StopFeedingIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "Type",
+                            "type": "FEEDING_TYPE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1347580264165.418331009805"
+                            }
+                        },
+                        {
+                            "name": "Method",
+                            "type": "FEEDING_METHOD",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1347580264165.591748185545"
+                            }
+                        },
+                        {
+                            "name": "Amount",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1347580264165.658727818425"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "RecordDiaperChangeIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "Wet",
+                            "type": "WET_TYPE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1254429708032.325141027658"
+                            }
+                        },
+                        {
+                            "name": "Solid",
+                            "type": "SOLID_TYPE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1254429708032.232215202220"
+                            }
+                        },
+                        {
+                            "name": "Color",
+                            "type": "POOP_COLOR",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1254429708032.1417592628713"
+                            }
+                        },
+                        {
+                            "name": "Amount",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1254429708032.592796569231"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "CurrentTimerIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Timer",
+                            "type": "TIMER_TYPE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.346572812367.292275373860"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "CancelTimerIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Timer",
+                            "type": "TIMER_TYPE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.931506411176.1228634577598"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "LastFeedingIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.491193288216.955936429502",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "which child?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1024065439874.1583792572138",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "which child?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1347580264165.418331009805",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "breast milk, formula, or fortified breast milk?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1347580264165.591748185545",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "bottle, left breast, right breast, or both breasts?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1347580264165.658727818425",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "how many ounces did you feed?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1254429708032.325141027658",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "was it wet?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1254429708032.232215202220",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "was it solid?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1254429708032.1417592628713",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "was it brown, black, green, or yellow?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1254429708032.592796569231",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "how many ounces?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.346572812367.292275373860",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "which timer?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.931506411176.1228634577598",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "which timer?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1441373035572.1459115683298",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "which child"
+                    }
+                ]
+            }
+        ]
     }
-  }
-  
+}

@@ -27,8 +27,8 @@ const fetchSecrets = async () => {
     //   }
     // });
     resolve({
-      BABY_BUDDY_API_KEY: 'REPLACE_ME',
-      BABY_BUDDY_API_URL: 'REPLACE_ME'
+      BABY_BUDDY_API_KEY: process.env.BABY_BUDDY_API_KEY,
+      BABY_BUDDY_API_URL: process.env.BABY_BUDDY_API_URL
     });
   });
 };

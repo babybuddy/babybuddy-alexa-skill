@@ -7,7 +7,7 @@
     "setup": "bash ../../bin/setup.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Amazon Alexa",
+  "author": "Robbie Plankenhorn",
   "license": "ISC",
   "dependencies": {
     "ask-sdk-core": "^2.6.0",

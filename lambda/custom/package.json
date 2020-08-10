@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "setup": "bash ../../bin/setup.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Amazon Alexa",

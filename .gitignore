@@ -105,3 +105,6 @@ dist
 
 # Ask CLI
 .ask/lambda
+
+# VSCode
+.vscode/launch.json

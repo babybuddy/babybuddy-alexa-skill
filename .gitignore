@@ -105,6 +105,8 @@ dist
 
 # Ask CLI
 .ask/lambda
+skill-package/skill.json
+.ask/ask-states.json
 
 # VSCode
 .vscode/launch.json

@@ -4,6 +4,47 @@
 
 This is an Alexa skill to help supplement the [Baby Buddy](https://github.com/babybuddy/babybuddy) server and allow users to record diaper changes, feedings, tummy times, etc. with their voice.
 
+## Usage
+
+For actions that require a duration, a start keyword creates a named timer and a stop keyword closes out that timer and creates the feeding, tummy time, sleep, etc.
+
+Currently, all intents allow you to specify which child but if no child is specified and there is only one child in the system, it will assume that child.  TODO:  If there is more than one child and no child is specified, prompt user for which child.
+
+There are a lot of ways to instantiate any given intent and they can be found by examining the [interaction model](https://github.com/babybuddy/babybuddy-alexa-skill/blob/master/skill-package/interactionModels/custom/en-US.json).
+
+### Feedings
+
+```
+Alexa, ask Baby Buddy to start feeding (for [Child's Name])
+Alexa, ask Baby Buddy to stop feeding (for [Child's Name])
+```
+
+### Tummy Time
+
+```
+Alexa, ask Baby Buddy to start tummy time (for [Child's Name])
+Alexa, ask Baby Buddy to stop tummy time (for [Child's Name])
+```
+
+### Sleeping
+
+```
+Alexa, ask Baby Buddy to start sleeping (for [Child's Name])
+Alexa, ask Baby Buddy to stop sleeping (for [Child's Name])
+```
+
+### Diaper Change
+
+```
+Alexa, ask Baby Buddy to log diaper change (for [Child's Name])
+```
+
+### Last Feeding
+
+```
+Alexa, ask Baby Buddy when was the last feeding (for [Child's Name])
+```
+
 ## Dependencies
 
 This project depends on the [ask-cli](https://github.com/alexa/ask-cli) for deployment to AWS.  Please follow the instructions [here](https://github.com/alexa/ask-cli).

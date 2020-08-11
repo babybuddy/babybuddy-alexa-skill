@@ -110,3 +110,6 @@ skill-package/skill.json
 
 # VSCode
 .vscode/launch.json
+
+# IDEA
+.idea

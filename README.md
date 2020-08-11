@@ -4,6 +4,10 @@
 
 This is an Alexa skill to help supplement the [Baby Buddy](https://github.com/babybuddy/babybuddy) server and allow users to record diaper changes, feedings, tummy times, etc. with their voice.
 
+### Minimum Baby Buddy version
+
+This skill requires Baby Buddy v1.4.1 or newer as it relies on Baby Buddy's API allowing null values for the `Timer.user` field.
+
 ## Usage
 
 For actions that require a duration, a start keyword creates a named timer and a stop keyword closes out that timer and creates the feeding, tummy time, sleep, etc.
@@ -66,11 +70,24 @@ yarn setup # Will prompt for Baby Buddy URL and API key
 
 ## Deployment
 
+### 1. Create `skill.json`
+
+Copy the `skill-package/skill.json.example` file as `skill.json`, making any desired modifications to the skill information.
+
+### 2. Deploy
+
 The ask-cli deploy command will automatically create the skill on your AWS account and a lambda function.  This needs to be done first in order to get local development to work.
 
 ```
 ask deploy
 ```
+
+### 3. Set up environment variables
+
+After deploy completes, navigate to the [AWS Lambda Console](https://console.aws.amazon.com/lambda), select the deployed function (see `.ask/ask-states.json` for the function name), and add the following environment variables:
+
+- `BABY_BUDDY_API_URL`: URL of the Baby Buddy instance (e.g. "https://baby.my-domain.com/").
+- `BABY_BUDDY_API_KEY`: API key for the instance (found on the User Settings page of the Baby Buddy instance).
 
 ## Local Development
 

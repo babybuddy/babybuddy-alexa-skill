@@ -61,7 +61,11 @@ class BabyBuddyApi {
       console.log(`getRequest(${url}), response: ${JSON.stringify(response.data)}`);
       return response.data;
     } catch (err) {
-      console.log(`Error: getRequest(${url}), error: ${JSON.stringify(err)}`);
+      if (err.response) {
+        console.error(`Error: getRequest(${url}, error: ${JSON.stringify(err.response.data)}`);
+      } else {
+        console.error(`Error: getRequest(${url}, error: ${JSON.stringify(err)}`);
+      }
       throw err;
     }
   }
@@ -80,7 +84,11 @@ class BabyBuddyApi {
       console.log(`postRequest(${url}, ${JSON.stringify(body)}), response: ${JSON.stringify(response.data)}`);
       return response.data;
     } catch (err) {
-      console.log(`Error: postRequest(${url}, ${JSON.stringify(body)}), error: ${JSON.stringify(err)}`);
+      if (err.response) {
+        console.error(`Error: postRequest(${url}, ${JSON.stringify(body)}), error: ${JSON.stringify(err.response.data)}`);
+      } else {
+        console.error(`Error: postRequest(${url}, ${JSON.stringify(body)}), error: ${JSON.stringify(err)}`);
+      }
       throw err;
     }
   }
@@ -99,7 +107,11 @@ class BabyBuddyApi {
       console.log(`deleteRequest(${url}), response: ${JSON.stringify(response.data)}`);
       return response.data;
     } catch (err) {
-      console.log(`Error: deleteRequest(${url}), error: ${JSON.stringify(err)}`);
+      if (err.response) {
+        console.error(`Error: deleteRequest(${url}, error: ${JSON.stringify(err.response.data)}`);
+      } else {
+        console.error(`Error: deleteRequest(${url}, error: ${JSON.stringify(err)}`);
+      }
       throw err;
     }
   }

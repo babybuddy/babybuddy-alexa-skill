@@ -4,6 +4,10 @@
 
 This is an Alexa skill to help supplement the [Baby Buddy](https://github.com/babybuddy/babybuddy) server and allow users to record diaper changes, feedings, tummy times, etc. with their voice.
 
+### Minimum Baby Buddy version
+
+This skill requires Baby Buddy v1.4.1 or newer as it relies on Baby Buddy's API allowing null values for the `Timer.user` field.
+
 ## Usage
 
 For actions that require a duration, a start keyword creates a named timer and a stop keyword closes out that timer and creates the feeding, tummy time, sleep, etc.

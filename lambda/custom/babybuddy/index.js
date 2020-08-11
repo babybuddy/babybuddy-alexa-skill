@@ -9,26 +9,23 @@ const secretsClient = new AWS.SecretsManager({
 
 const fetchSecrets = async () => {
   return new Promise((resolve, reject) => {
-    // const secretName = "baby-buddy-alexa-skill";
+    const secretName = "baby-buddy-alexa-skill";
 
-    // secretsClient.getSecretValue({ SecretId: secretName }, (err, data) => {
-    //   if (err) {
-    //     reject(err);
-    //   } else {
-    //     if ('SecretString' in data) {
-    //       const secret = data.SecretString;
-    //       const parsed = JSON.parse(secret);
-    //       resolve(parsed);
-    //     } else {
-    //       const buff = new Buffer(data.SecretBinary, 'base64');
-    //       const decodedBinarySecret = buff.toString('ascii');
-    //       resolve(decodedBinarySecret);
-    //     }
-    //   }
-    // });
-    resolve({
-      BABY_BUDDY_API_KEY: process.env.BABY_BUDDY_API_KEY,
-      BABY_BUDDY_API_URL: process.env.BABY_BUDDY_API_URL
+    secretsClient.getSecretValue({ SecretId: secretName }, (err, data) => {
+      if (err) {
+        console.log(`getSecretValue error: ${JSON.stringify(err)}`);
+        reject(err);
+      } else {
+        if ('SecretString' in data) {
+          const secret = data.SecretString;
+          const parsed = JSON.parse(secret);
+          resolve(parsed);
+        } else {
+          const buff = new Buffer(data.SecretBinary, 'base64');
+          const decodedBinarySecret = buff.toString('ascii');
+          resolve(decodedBinarySecret);
+        }
+      }
     });
   });
 };

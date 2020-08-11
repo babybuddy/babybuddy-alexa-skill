@@ -57,22 +57,15 @@ Also, [install yarn](https://yarnpkg.com/getting-started/install) for dependency
 
 Note:  The ask-cli cannot be installed using yarn and has to be installed using npm.
 
-## Setup
+## Deployment
 
-1. Clone the project locally
-2. Run the following commands:
+### 1. Create `skill.json` and `ask-states.json`
 
 ```
 cd lambda/custom
 yarn
 yarn setup # Will prompt for Baby Buddy URL and API key
 ```
-
-## Deployment
-
-### 1. Create `skill.json`
-
-Copy the `skill-package/skill.json.example` file as `skill.json`, making any desired modifications to the skill information.
 
 ### 2. Deploy
 
@@ -84,10 +77,9 @@ ask deploy
 
 ### 3. Set up environment variables
 
-After deploy completes, navigate to the [AWS Lambda Console](https://console.aws.amazon.com/lambda), select the deployed function (see `.ask/ask-states.json` for the function name), and add the following environment variables:
+After running the setup.sh script, ```BABY_BUDDY_API_URL``` and ```BABY_BUDDY_API_KEY``` values will be uploaded to the [AWS Secrets Manager](https://console.aws.amazon.com/secretsmanager) for secure storage.
 
-- `BABY_BUDDY_API_URL`: URL of the Baby Buddy instance (e.g. "https://baby.my-domain.com/").
-- `BABY_BUDDY_API_KEY`: API key for the instance (found on the User Settings page of the Baby Buddy instance).
+In order for the Alexa Skill lambda to access the secrets, the ```arn:aws:iam::aws:policy/SecretsManagerReadWrite``` role needs to be added to the IAM policy that was created after running ```ask deploy```.  The IAM policy can be found in the ```ask-states.json``` file.
 
 ## Local Development
 

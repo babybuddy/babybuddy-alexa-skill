@@ -3,7 +3,7 @@
   "profiles": {
     "default": {
       "skillInfrastructure": {
-        "@ask-cli/lambda-deployer": {
+        "@ask-cli/cfn-deployer": {
           "deployState": {}
         }
       }

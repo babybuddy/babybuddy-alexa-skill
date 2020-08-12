@@ -1,31 +1,37 @@
 const axios = require('axios').default;
-const AWS = require('aws-sdk');
 
-const region = "us-east-2";
+const { BABY_BUDDY_API_KEY, BABY_BUDDY_API_URL } = require('../config');
+// const AWS = require('aws-sdk');
 
-const secretsClient = new AWS.SecretsManager({
-  region: region
-});
+// const region = "us-east-2";
+
+// const secretsClient = new AWS.SecretsManager({
+//   region: region
+// });
 
 const fetchSecrets = async () => {
   return new Promise((resolve, reject) => {
-    const secretName = "baby-buddy-alexa-skill";
+    // const secretName = "baby-buddy-alexa-skill";
 
-    secretsClient.getSecretValue({ SecretId: secretName }, (err, data) => {
-      if (err) {
-        console.log(`getSecretValue error: ${JSON.stringify(err)}`);
-        reject(err);
-      } else {
-        if ('SecretString' in data) {
-          const secret = data.SecretString;
-          const parsed = JSON.parse(secret);
-          resolve(parsed);
-        } else {
-          const buff = new Buffer(data.SecretBinary, 'base64');
-          const decodedBinarySecret = buff.toString('ascii');
-          resolve(decodedBinarySecret);
-        }
-      }
+    // secretsClient.getSecretValue({ SecretId: secretName }, (err, data) => {
+    //   if (err) {
+    //     console.log(`getSecretValue error: ${JSON.stringify(err)}`);
+    //     reject(err);
+    //   } else {
+    //     if ('SecretString' in data) {
+    //       const secret = data.SecretString;
+    //       const parsed = JSON.parse(secret);
+    //       resolve(parsed);
+    //     } else {
+    //       const buff = new Buffer(data.SecretBinary, 'base64');
+    //       const decodedBinarySecret = buff.toString('ascii');
+    //       resolve(decodedBinarySecret);
+    //     }
+    //   }
+    // });
+    resolve({
+      BABY_BUDDY_API_KEY,
+      BABY_BUDDY_API_URL
     });
   });
 };

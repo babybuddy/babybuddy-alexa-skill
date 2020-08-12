@@ -17,9 +17,9 @@ if ! command -v aws &> /dev/null; then
     exit
 fi
 
-SECRET_ID=baby-buddy-alexa-skill
+CONFIG_FILE="$SCRIPT_DIR/../lambda/custom/config.js"
 
-if ! aws secretsmanager get-secret-value --secret-id $SECRET_ID > /dev/null 2>&1; then
+if [[ ! -f $CONFIG_FILE ]]; then
   echo -n "Enter Baby Buddy server URL (e.g. https://babybuddy.url.com/): "
 
   read BABY_BUDDY_API_URL
@@ -28,7 +28,10 @@ if ! aws secretsmanager get-secret-value --secret-id $SECRET_ID > /dev/null 2>&1
 
   read BABY_BUDDY_API_KEY
 
-  aws secretsmanager create-secret --name $SECRET_ID --description "Secrets for the Baby Buddy Alexa Skill." --secret-string "{\"BABY_BUDDY_API_KEY\":\"$BABY_BUDDY_API_KEY\",\"BABY_BUDDY_API_URL\":\"$BABY_BUDDY_API_URL\"}"
+  touch $CONFIG_FILE
 
-  echo "Secrets have been added to AWS Secrets Manager under the key \"baby-buddy-alexa-skill\".  Please add the arn:aws:iam::aws:policy/SecretsManagerReadWrite role to the IAM policy found in ask-states.json."
+  echo "module.exports = {" >> $CONFIG_FILE
+  echo "  BABY_BUDDY_API_KEY: \"$BABY_BUDDY_API_KEY\"," >> $CONFIG_FILE
+  echo "  BABY_BUDDY_API_URL: \"$BABY_BUDDY_API_URL\"," >> $CONFIG_FILE
+  echo "}" >> $CONFIG_FILE
 fi

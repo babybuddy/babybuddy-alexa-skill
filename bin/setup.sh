@@ -12,11 +12,6 @@ for file in ${SETUP_FILES[@]}; do
   fi
 done
 
-if ! command -v aws &> /dev/null; then
-    echo "aws could not be found.  Please follow the instructions here: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html."
-    exit
-fi
-
 CONFIG_FILE="$SCRIPT_DIR/../lambda/custom/config.js"
 
 if [[ ! -f $CONFIG_FILE ]]; then

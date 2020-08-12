@@ -51,9 +51,17 @@ Alexa, ask Baby Buddy when was the last feeding (for [Child's Name])
 
 ## Dependencies
 
-This project depends on the [ask-cli](https://github.com/alexa/ask-cli) for deployment to AWS.  Please follow the instructions [here](https://github.com/alexa/ask-cli).
+### Yarn
 
-Also, [install yarn](https://yarnpkg.com/getting-started/install) for dependency management.
+This project uses [yarn](https://yarnpkg.com/getting-started/install) for dependency management.
+
+### AWS CLI
+
+In order to make certain updates to AWS, certain scripts leverage the aws cli to make these changes.  Please follow the instructions [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+
+### ASK CLI
+
+This project depends on the [ask-cli](https://github.com/alexa/ask-cli) for deployment to AWS.  Please follow the instructions [here](https://github.com/alexa/ask-cli) to install.
 
 Note:  The ask-cli cannot be installed using yarn and has to be installed using npm.
 

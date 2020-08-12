@@ -10,6 +10,11 @@ for file in ${SETUP_FILES[@]}; do
   fi
 done
 
+if ! command -v aws &> /dev/null; then
+    echo "aws could not be found.  Please follow the instructions here: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html."
+    exit
+fi
+
 if ! aws secretsmanager get-secret-value --secret-id baby-buddy-alexa-skill > /dev/null 2>&1; then
   echo -n "Enter Baby Buddy server URL (e.g. https://babybuddy.url.com/): "
 

@@ -63,7 +63,7 @@ Note:  The ask-cli cannot be installed using yarn and has to be installed using 
 
 ## Deployment
 
-### 1. Create `skill.json` and `ask-states.json`
+### 1. Create ```skill.json```, ```ask-resources.json```, and ```ask-states.json```
 
 ```
 cd lambda/custom

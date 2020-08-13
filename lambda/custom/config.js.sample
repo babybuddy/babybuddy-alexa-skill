@@ -1,0 +1,4 @@
+module.exports = {
+  BABY_BUDDY_API_KEY: "",
+  BABY_BUDDY_API_URL: "",
+};

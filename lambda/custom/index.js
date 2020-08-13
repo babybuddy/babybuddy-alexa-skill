@@ -1,7 +1,5 @@
 const Alexa = require('ask-sdk-core');
 
-require('dotenv').config({ path: 'lambda/custom/.env' });
-
 const {
   CancelAndStopIntentHandler,
   TimerIntentHandler,

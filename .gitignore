@@ -107,6 +107,10 @@ dist
 .ask/lambda
 skill-package/skill.json
 .ask/ask-states.json
+ask-resources.json
+
+# Lambda Config
+lambda/custom/config.js
 
 # VSCode
 .vscode/launch.json

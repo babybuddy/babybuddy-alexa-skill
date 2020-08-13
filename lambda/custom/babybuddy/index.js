@@ -1,11 +1,13 @@
 const axios = require('axios').default;
-const AWS = require('aws-sdk');
 
-const region = "us-east-2";
+const { BABY_BUDDY_API_KEY, BABY_BUDDY_API_URL } = require('../config');
+// const AWS = require('aws-sdk');
 
-const secretsClient = new AWS.SecretsManager({
-  region: region
-});
+// const region = "us-east-2";
+
+// const secretsClient = new AWS.SecretsManager({
+//   region: region
+// });
 
 const fetchSecrets = async () => {
   return new Promise((resolve, reject) => {
@@ -13,6 +15,7 @@ const fetchSecrets = async () => {
 
     // secretsClient.getSecretValue({ SecretId: secretName }, (err, data) => {
     //   if (err) {
+    //     console.log(`getSecretValue error: ${JSON.stringify(err)}`);
     //     reject(err);
     //   } else {
     //     if ('SecretString' in data) {
@@ -27,8 +30,8 @@ const fetchSecrets = async () => {
     //   }
     // });
     resolve({
-      BABY_BUDDY_API_KEY: process.env.BABY_BUDDY_API_KEY,
-      BABY_BUDDY_API_URL: process.env.BABY_BUDDY_API_URL
+      BABY_BUDDY_API_KEY,
+      BABY_BUDDY_API_URL
     });
   });
 };

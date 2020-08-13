@@ -51,28 +51,25 @@ Alexa, ask Baby Buddy when was the last feeding (for [Child's Name])
 
 ## Dependencies
 
-This project depends on the [ask-cli](https://github.com/alexa/ask-cli) for deployment to AWS.  Please follow the instructions [here](https://github.com/alexa/ask-cli).
+### Yarn
 
-Also, [install yarn](https://yarnpkg.com/getting-started/install) for dependency management.
+This project uses [yarn](https://yarnpkg.com/getting-started/install) for dependency management.
+
+### ASK CLI
+
+This project depends on the [ask-cli](https://github.com/alexa/ask-cli) for deployment to AWS.  Please follow the instructions [here](https://github.com/alexa/ask-cli) to install.
 
 Note:  The ask-cli cannot be installed using yarn and has to be installed using npm.
 
-## Setup
+## Deployment
 
-1. Clone the project locally
-2. Run the following commands:
+### 1. Create ```skill.json```, ```ask-resources.json```, and ```ask-states.json```
 
 ```
 cd lambda/custom
 yarn
 yarn setup # Will prompt for Baby Buddy URL and API key
 ```
-
-## Deployment
-
-### 1. Create `skill.json`
-
-Copy the `skill-package/skill.json.example` file as `skill.json`, making any desired modifications to the skill information.
 
 ### 2. Deploy
 
@@ -81,13 +78,6 @@ The ask-cli deploy command will automatically create the skill on your AWS accou
 ```
 ask deploy
 ```
-
-### 3. Set up environment variables
-
-After deploy completes, navigate to the [AWS Lambda Console](https://console.aws.amazon.com/lambda), select the deployed function (see `.ask/ask-states.json` for the function name), and add the following environment variables:
-
-- `BABY_BUDDY_API_URL`: URL of the Baby Buddy instance (e.g. "https://baby.my-domain.com/").
-- `BABY_BUDDY_API_KEY`: API key for the instance (found on the User Settings page of the Baby Buddy instance).
 
 ## Local Development
 

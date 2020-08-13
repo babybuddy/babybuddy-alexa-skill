@@ -7,7 +7,7 @@
       },
       "code": {
         "default": {
-          "src": "./lambda/custom"
+          "src": "./lambda/custom/.build"
         }
       },
       "skillInfrastructure": {

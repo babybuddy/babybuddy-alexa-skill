@@ -1,0 +1,7 @@
+const BABY_BUDDY_API_KEY = '';
+const BABY_BUDDY_API_URL = '';
+
+export {
+  BABY_BUDDY_API_KEY,
+  BABY_BUDDY_API_URL
+}

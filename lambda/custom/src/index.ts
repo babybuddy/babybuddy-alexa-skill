@@ -1,6 +1,6 @@
-const Alexa = require('ask-sdk-core');
+import { SkillBuilders } from 'ask-sdk-core';
 
-const {
+import {
   CancelAndStopIntentHandler,
   TimerIntentHandler,
   DiaperChangeIntentHandler,
@@ -13,9 +13,9 @@ const {
   SessionEndedRequestHandler,
   SleepIntentHandler,
   TummyTimeIntentHandler,
-} = require('./handlers');
+} from './handlers';
 
-exports.handler = Alexa.SkillBuilders.custom()
+const handler = SkillBuilders.custom()
   .addRequestHandlers(
     TimerIntentHandler,
     FeedingIntentHandler,
@@ -27,9 +27,9 @@ exports.handler = Alexa.SkillBuilders.custom()
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler,
-    IntentReflectorHandler, // make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
+    IntentReflectorHandler // make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
   )
-  .addErrorHandlers(
-    ErrorHandler,
-  )
+  .addErrorHandlers(ErrorHandler)
   .lambda();
+
+export { handler };

@@ -5,7 +5,18 @@
   "main": "index.js",
   "scripts": {
     "setup": "bash ../../bin/setup.sh",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf build",
+    "compile": "tsc --build tsconfig.json --pretty",
+    "build-final": "cpy package.json .build && cd .build/ && yarn install --production=true",
+    "lint-check": "eslint **/*.js **/*.ts",
+    "lint-fix": "yarn lint-check --fix",
+    "build": "yarn clean && yarn compile && yarn build-final",
+    "check": "gts check",
+    "fix": "gts fix",
+    "prepare": "yarn run compile",
+    "pretest": "yarn run compile",
+    "posttest": "yarn run check"
   },
   "author": "Robbie Plankenhorn",
   "license": "ISC",
@@ -15,5 +26,15 @@
     "aws-sdk": "^2.326.0",
     "axios": "^0.19.2",
     "moment": "^2.27.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "cpy-cli": "^3.1.1",
+    "eslint": "^7.6.0",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
   }
 }

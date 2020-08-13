@@ -79,12 +79,6 @@ The ask-cli deploy command will automatically create the skill on your AWS accou
 ask deploy
 ```
 
-### 3. Set up environment variables
-
-After running the setup.sh script, ```BABY_BUDDY_API_URL``` and ```BABY_BUDDY_API_KEY``` values will be uploaded to the [AWS Secrets Manager](https://console.aws.amazon.com/secretsmanager) for secure storage.
-
-In order for the Alexa Skill lambda to access the secrets, the ```arn:aws:iam::aws:policy/SecretsManagerReadWrite``` role needs to be added to the IAM policy that was created after running ```ask deploy```.  The IAM policy can be found in the ```ask-states.json``` file.
-
 ## Local Development
 
 The setup script will create a VSCode launch.json file to use for local development.  Developers can use something like [ngrok](https://ngrok.com/download) to redirect requests to their local dev instance for debugging.  Just update the Endpoint section on the Build tab at [developer.amazon.com](https://developer.amazon.com) to use the ngrok URL.

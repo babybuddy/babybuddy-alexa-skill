@@ -3,18 +3,23 @@ import { RequestEnvelope } from 'ask-sdk-model';
 
 import babyBuddy from '../babybuddy';
 
+import {
+  Timer,
+  Child,
+} from '../babyBuddy/types';
+
 enum TimerTypes {
   FEEDING = 'feeding',
   SLEEPING = 'sleeping',
   TUMMY_TIME = 'tummy_time',
 }
 
-const getTimersForIdentifier = async (identifier: string) => {
+const getTimersForIdentifier: (identifier: string) => Promise<Timer[]> = async (identifier: string) => {
   const currentTimers = await babyBuddy.getActiveTimers();
   return currentTimers.filter(timer => timer.name === identifier);
 };
 
-const getSelectedChild = async (name: string) => {
+const getSelectedChild: (name: string) => Promise<Child | undefined> = async (name: string) => {
   const response = await babyBuddy.getChildren();
   const children = response.results;
 
@@ -29,7 +34,7 @@ const getSelectedChild = async (name: string) => {
   }
 };
 
-const getResolvedSlotValue = (
+const getResolvedSlotValue: (requestEnvelope: RequestEnvelope, slotName: string) => string | undefined = (
   requestEnvelope: RequestEnvelope,
   slotName: string
 ) => {
@@ -45,7 +50,7 @@ const getResolvedSlotValue = (
   }
 };
 
-const getMinutesFromDurationString = (duration: string) => {
+const getMinutesFromDurationString: (duration: string) => number = (duration: string) => {
   const [hourString, minuteString, secondString] = duration.split(':');
   const minutes =
     parseInt(hourString) * 60 +

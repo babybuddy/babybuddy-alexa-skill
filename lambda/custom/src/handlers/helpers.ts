@@ -1,12 +1,11 @@
 import { getSlot } from 'ask-sdk-core';
 import { RequestEnvelope } from 'ask-sdk-model';
 
-import { babyBuddy } from '../babybuddy';
-
 import {
   Timer,
   Child,
-} from '../babyBuddy/types';
+  babyBuddy,
+} from '../babybuddy';
 
 enum TimerTypes {
   FEEDING = 'feeding',

@@ -109,9 +109,6 @@ skill-package/skill.json
 .ask/ask-states.json
 ask-resources.json
 
-# Lambda Config
-lambda/custom/src/config.ts
-
 # VSCode
 .vscode/launch.json
 

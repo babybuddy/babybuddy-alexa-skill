@@ -6,13 +6,10 @@ import {
   Feeding,
   Timer,
   Child,
-  CreateDiaperChange
+  CreateDiaperChange,
+  Secret,
+  URLS,
 } from './types';
-
-interface Secret {
-  apiKey: string;
-  apiUrl: string;
-}
 
 const fetchSecrets: () => Promise<Secret> = async () => {
   return new Promise((resolve, reject) => {
@@ -26,18 +23,6 @@ const fetchSecrets: () => Promise<Secret> = async () => {
     }
   });
 };
-
-enum URLS {
-  CHILDREN = 'api/children/',
-  DIAPER_CHANGES = 'api/changes/',
-  FEEDINGS = 'api/feedings/',
-  NOTES = 'api/notes/',
-  SLEEP = 'api/sleep/',
-  TEMPERATURE = 'api/temperature/',
-  TIMERS = 'api/timers/',
-  TUMMY_TIMES = 'api/tummy-times/',
-  WEIGHT = 'api/weight/',
-}
 
 class BabyBuddyApi {
   async getRequest<T>(url: string): Promise<GetResponse<T>> {

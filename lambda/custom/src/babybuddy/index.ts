@@ -8,7 +8,8 @@ import {
   Feeding,
   Timer,
   Child,
-  CreateDiaperChange
+  CreateDiaperChange,
+  URLS
 } from './types';
 
 export {
@@ -20,5 +21,6 @@ export {
   Timer,
   Child,
   CreateDiaperChange,
+  URLS,
   babyBuddy
 };

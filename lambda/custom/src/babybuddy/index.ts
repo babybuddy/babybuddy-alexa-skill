@@ -18,17 +18,17 @@ const fetchSecrets: () => Promise<Secret> = async () => {
   });
 };
 
-const URLS = {
-  CHILDREN: 'api/children/',
-  DIAPER_CHANGES: 'api/changes/',
-  FEEDINGS: 'api/feedings/',
-  NOTES: 'api/notes/',
-  SLEEP: 'api/sleep/',
-  TEMPERATURE: 'api/temperature/',
-  TIMERS: 'api/timers/',
-  TUMMY_TIMES: 'api/tummy-times/',
-  WEIGHT: 'api/weight/',
-};
+enum URLS {
+  CHILDREN = 'api/children/',
+  DIAPER_CHANGES = 'api/changes/',
+  FEEDINGS = 'api/feedings/',
+  NOTES = 'api/notes/',
+  SLEEP = 'api/sleep/',
+  TEMPERATURE = 'api/temperature/',
+  TIMERS = 'api/timers/',
+  TUMMY_TIMES = 'api/tummy-times/',
+  WEIGHT = 'api/weight/',
+}
 
 interface GetResponse<T> {
   count: number;

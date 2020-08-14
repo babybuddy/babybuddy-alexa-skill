@@ -1,5 +1,5 @@
-import {getSlot} from 'ask-sdk-core';
-import {RequestEnvelope} from 'ask-sdk-model';
+import { getSlot } from 'ask-sdk-core';
+import { RequestEnvelope } from 'ask-sdk-model';
 
 import babyBuddy from '../babybuddy';
 

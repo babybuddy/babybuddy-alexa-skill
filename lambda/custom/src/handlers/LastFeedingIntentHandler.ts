@@ -9,7 +9,7 @@ import * as moment from 'moment';
 
 import babyBuddy from '../babybuddy';
 
-import {getSelectedChild, getMinutesFromDurationString} from './helpers';
+import { getSelectedChild, getMinutesFromDurationString } from './helpers';
 
 const LastFeedingIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -47,7 +47,7 @@ const LastFeedingIntentHandler: RequestHandler = {
 
     console.log(`lastFeeding: ${JSON.stringify(lastFeeding)}`);
 
-    const {start, duration, amount} = lastFeeding;
+    const { start, duration, amount } = lastFeeding;
 
     const startDate = moment.parseZone(start);
 
@@ -63,9 +63,9 @@ const LastFeedingIntentHandler: RequestHandler = {
 
     const speakOutput = `${
       selectedChild.first_name
-    } last started eating at ${timeString}, ate for ${minutes} ${
+      } last started eating at ${timeString}, ate for ${minutes} ${
       minutes === 1 ? 'minute' : 'minutes'
-    }, and drank ${amount} ounces.`;
+      }, and drank ${amount} ounces.`;
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
@@ -75,4 +75,4 @@ const LastFeedingIntentHandler: RequestHandler = {
   },
 };
 
-export {LastFeedingIntentHandler};
+export { LastFeedingIntentHandler };

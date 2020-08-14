@@ -115,4 +115,4 @@ const FeedingIntentHandler: RequestHandler = {
   },
 };
 
-export {FeedingIntentHandler};
+export { FeedingIntentHandler };

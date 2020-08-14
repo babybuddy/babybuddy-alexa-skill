@@ -1,4 +1,4 @@
-import {getRequestType, RequestHandler} from 'ask-sdk-core';
+import { getRequestType, RequestHandler } from 'ask-sdk-core';
 
 const SessionEndedRequestHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -14,4 +14,4 @@ const SessionEndedRequestHandler: RequestHandler = {
   },
 };
 
-export {SessionEndedRequestHandler};
+export { SessionEndedRequestHandler };

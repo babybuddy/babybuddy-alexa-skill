@@ -1,4 +1,4 @@
-import {getRequestType, RequestHandler} from 'ask-sdk-core';
+import { getRequestType, RequestHandler } from 'ask-sdk-core';
 
 const LaunchRequestHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -14,4 +14,4 @@ const LaunchRequestHandler: RequestHandler = {
   },
 };
 
-export {LaunchRequestHandler};
+export { LaunchRequestHandler };

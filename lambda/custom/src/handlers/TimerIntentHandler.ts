@@ -1,8 +1,8 @@
-import {RequestHandler, getRequestType, getIntentName} from 'ask-sdk-core';
+import { RequestHandler, getRequestType, getIntentName } from 'ask-sdk-core';
 
 import babyBuddy from '../babybuddy';
 
-import {getResolvedSlotValue, getMinutesFromDurationString} from './helpers';
+import { getResolvedSlotValue, getMinutesFromDurationString } from './helpers';
 
 const TimerIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -39,7 +39,7 @@ const TimerIntentHandler: RequestHandler = {
         const minutes = getMinutesFromDurationString(inquiredTimer.duration);
         speakOutput = `Your ${timer} timer has been active for about ${minutes} ${
           minutes === 1 ? 'minute' : 'minutes'
-        }.`;
+          }.`;
       }
     } else {
       speakOutput = `You don't currently have any ${timer} timers running.`;
@@ -52,4 +52,4 @@ const TimerIntentHandler: RequestHandler = {
   },
 };
 
-export {TimerIntentHandler};
+export { TimerIntentHandler };

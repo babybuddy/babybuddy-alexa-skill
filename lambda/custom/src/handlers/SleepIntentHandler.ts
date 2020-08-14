@@ -7,7 +7,7 @@ import {
 
 import babyBuddy from '../babybuddy';
 
-import {TimerTypes, getTimersForIdentifier, getSelectedChild} from './helpers';
+import { TimerTypes, getTimersForIdentifier, getSelectedChild } from './helpers';
 
 const SleepIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -59,4 +59,4 @@ const SleepIntentHandler: RequestHandler = {
   },
 };
 
-export {SleepIntentHandler};
+export { SleepIntentHandler };

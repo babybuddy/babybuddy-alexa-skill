@@ -7,7 +7,7 @@ import {
 
 import babyBuddy from '../babybuddy';
 
-import {TimerTypes, getTimersForIdentifier, getSelectedChild} from './helpers';
+import { TimerTypes, getTimersForIdentifier, getSelectedChild } from './helpers';
 
 const TummyTimeIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -58,4 +58,4 @@ const TummyTimeIntentHandler: RequestHandler = {
   },
 };
 
-export {TummyTimeIntentHandler};
+export { TummyTimeIntentHandler };

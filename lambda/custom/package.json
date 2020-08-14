@@ -13,11 +13,9 @@
     "lint-fix": "yarn lint-check --fix",
     "build": "yarn clean && yarn compile && yarn build-final",
     "zip": "cd .build && bestzip ../build.zip * .env",
-    "check": "gts check",
-    "fix": "gts fix",
-    "prepare": "yarn run compile",
-    "pretest": "yarn run compile",
-    "posttest": "yarn run check"
+    "prepare": "yarn compile",
+    "pretest": "yarn compile",
+    "posttest": "yarn check"
   },
   "author": "Robbie Plankenhorn",
   "license": "ISC",

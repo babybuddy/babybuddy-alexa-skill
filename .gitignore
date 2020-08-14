@@ -111,6 +111,7 @@ ask-resources.json
 
 # VSCode
 .vscode/launch.json
+.vscode/tasks.json
 
 # IDEA
 .idea

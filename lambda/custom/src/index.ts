@@ -1,4 +1,13 @@
 import { SkillBuilders } from 'ask-sdk-core';
+import * as dotenv from 'dotenv';
+
+const result = dotenv.config({ path: `${__dirname}/../.env` });
+
+if (result.error) {
+  throw result.error;
+}
+
+console.log(result.parsed);
 
 import {
   CancelAndStopIntentHandler,

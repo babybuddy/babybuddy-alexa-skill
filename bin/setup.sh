@@ -12,7 +12,7 @@ for file in ${SETUP_FILES[@]}; do
   fi
 done
 
-CONFIG_FILE="$SCRIPT_DIR/../lambda/custom/src/config.ts"
+CONFIG_FILE="$SCRIPT_DIR/../lambda/custom/.env"
 
 if [[ ! -f $CONFIG_FILE ]]; then
   echo -n "Enter Baby Buddy server URL (e.g. https://babybuddy.url.com/): "
@@ -26,12 +26,7 @@ if [[ ! -f $CONFIG_FILE ]]; then
   touch $CONFIG_FILE
 
   cat > $CONFIG_FILE <<EOL
-const BABY_BUDDY_API_KEY = '${BABY_BUDDY_API_KEY}';
-const BABY_BUDDY_API_URL = '${BABY_BUDDY_API_URL}';
-
-export {
-  BABY_BUDDY_API_KEY,
-  BABY_BUDDY_API_URL
-}
+BABY_BUDDY_API_KEY=${BABY_BUDDY_API_KEY}
+BABY_BUDDY_API_URL=${BABY_BUDDY_API_URL}
 EOL
 fi

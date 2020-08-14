@@ -1,13 +1,5 @@
 import axios from 'axios';
 
-import { BABY_BUDDY_API_KEY, BABY_BUDDY_API_URL } from '../config';
-
-// const region = "us-east-2";
-
-// const secretsClient = new SecretsManager({
-//   region: region
-// });
-
 interface Secret {
   apiKey: string;
   apiUrl: string;
@@ -15,27 +7,14 @@ interface Secret {
 
 const fetchSecrets: () => Promise<Secret> = async () => {
   return new Promise((resolve, reject) => {
-    // const secretName = "baby-buddy-alexa-skill";
-
-    // secretsClient.getSecretValue({ SecretId: secretName }, (err, data) => {
-    //   if (err) {
-    //     reject(err);
-    //   } else {
-    //     if ('SecretString' in data) {
-    //       const secret = data.SecretString;
-    //       const parsed = JSON.parse(secret);
-    //       resolve(parsed);
-    //     } else {
-    //       const buff = new Buffer(data.SecretBinary, 'base64');
-    //       const decodedBinarySecret = buff.toString('ascii');
-    //       resolve(decodedBinarySecret);
-    //     }
-    //   }
-    // });
-    resolve({
-      apiKey: BABY_BUDDY_API_KEY,
-      apiUrl: BABY_BUDDY_API_URL,
-    });
+    if (process.env.BABY_BUDDY_API_KEY && process.env.BABY_BUDDY_API_URL) {
+      resolve({
+        apiKey: process.env.BABY_BUDDY_API_KEY,
+        apiUrl: process.env.BABY_BUDDY_API_URL,
+      });
+    } else {
+      reject('BABY_BUDDY_API_KEY and/or BABY_BUDDY_API_URL not defined!');
+    }
   });
 };
 

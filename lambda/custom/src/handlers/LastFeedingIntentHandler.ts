@@ -61,11 +61,9 @@ const LastFeedingIntentHandler: RequestHandler = {
 
     console.log(`minutes: ${minutes}`);
 
-    const speakOutput = `${
-      selectedChild.first_name
-      } last started eating at ${timeString}, ate for ${minutes} ${
-      minutes === 1 ? 'minute' : 'minutes'
-      }, and drank ${amount} ounces.`;
+    let speakOutput = `${selectedChild.first_name} last started eating at ${timeString}`;
+    speakOutput += `, ate for ${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+    speakOutput += `, and ate ${amount} ${amount === 1 ? 'ounce' : 'ounces'}.`;
 
     return handlerInput.responseBuilder
       .speak(speakOutput)

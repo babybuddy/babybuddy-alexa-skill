@@ -37,9 +37,7 @@ const TimerIntentHandler: RequestHandler = {
         speakOutput = `Your ${timer} timer has been cancelled.`;
       } else {
         const minutes = getMinutesFromDurationString(inquiredTimer.duration);
-        speakOutput = `Your ${timer} timer has been active for about ${minutes} ${
-          minutes === 1 ? 'minute' : 'minutes'
-          }.`;
+        speakOutput = `Your ${timer} timer has been active for about ${minutes} ${minutes === 1 ? 'minute' : 'minutes'}.`;
       }
     } else {
       speakOutput = `You don't currently have any ${timer} timers running.`;

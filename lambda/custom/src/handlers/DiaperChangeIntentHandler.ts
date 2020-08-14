@@ -7,7 +7,7 @@ import {
 
 import babyBuddy from '../babybuddy';
 
-import {getSelectedChild, getResolvedSlotValue} from './helpers';
+import { getSelectedChild, getResolvedSlotValue } from './helpers';
 
 const DiaperChangeIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -87,4 +87,4 @@ const DiaperChangeIntentHandler: RequestHandler = {
   },
 };
 
-export {DiaperChangeIntentHandler};
+export { DiaperChangeIntentHandler };

@@ -1,6 +1,6 @@
 import { RequestHandler, getRequestType, getIntentName } from 'ask-sdk-core';
 
-import babyBuddy from '../babybuddy';
+import { babyBuddy } from '../babybuddy';
 
 import { getResolvedSlotValue, getMinutesFromDurationString } from './helpers';
 

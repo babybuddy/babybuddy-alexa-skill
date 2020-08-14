@@ -7,7 +7,7 @@ import {
 
 import * as moment from 'moment';
 
-import babyBuddy from '../babybuddy';
+import { babyBuddy } from '../babybuddy';
 
 import { getSelectedChild, getMinutesFromDurationString } from './helpers';
 

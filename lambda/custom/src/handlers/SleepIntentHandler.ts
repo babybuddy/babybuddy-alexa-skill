@@ -5,7 +5,7 @@ import {
   getSlotValue,
 } from 'ask-sdk-core';
 
-import babyBuddy from '../babybuddy';
+import { babyBuddy } from '../babybuddy';
 
 import { TimerTypes, getTimersForIdentifier, getSelectedChild } from './helpers';
 

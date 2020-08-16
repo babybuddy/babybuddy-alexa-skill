@@ -21,6 +21,7 @@ import {
   LaunchRequestHandler,
   SessionEndedRequestHandler,
   SleepIntentHandler,
+  TotalFeedingsIntentHandler,
   TummyTimeIntentHandler,
 } from './handlers';
 
@@ -32,6 +33,7 @@ const handler = SkillBuilders.custom()
     DiaperChangeIntentHandler,
     TummyTimeIntentHandler,
     LastFeedingIntentHandler,
+    TotalFeedingsIntentHandler,
     LaunchRequestHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,

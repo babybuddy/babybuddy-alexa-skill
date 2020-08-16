@@ -49,6 +49,12 @@ Alexa, ask Baby Buddy to log diaper change (for [Child's Name])
 Alexa, ask Baby Buddy when was the last feeding (for [Child's Name])
 ```
 
+### Total Feedings for that day
+
+```
+Alexa, ask Baby Buddy how much [Child's Name] has eaten today
+```
+
 ## Dependencies
 
 ### Yarn

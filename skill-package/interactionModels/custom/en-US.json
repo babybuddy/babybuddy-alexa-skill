@@ -223,6 +223,28 @@
                         "when did {Name} last eat",
                         "when did {Name} eat last"
                     ]
+                },
+                {
+                    "name": "TotalFeedingsIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "what's the count",
+                        "the total ounces {Name} has eaten today",
+                        "the total ounces",
+                        "how much {Name} has eaten today",
+                        "how many ouces {Name} has eaten today",
+                        "what are the total feedings today",
+                        "what are the total ounces for today",
+                        "what are the total ounces",
+                        "how many ounces has {Name} eaten today",
+                        "how many ounces today",
+                        "how much has {Name} eaten today"
+                    ]
                 }
             ],
             "types": [

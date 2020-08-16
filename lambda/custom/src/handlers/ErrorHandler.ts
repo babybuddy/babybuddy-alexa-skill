@@ -1,29 +1,25 @@
-const Alexa = require('ask-sdk-core');
+import { RequestHandler } from 'ask-sdk-core';
 
 // Generic error handling to capture any syntax or routing errors. If you receive an error
 // stating the request handler chain is not found, you have not implemented a handler for
 // the intent being invoked or included it in the skill builder below.
-const ErrorHandler = {
+const ErrorHandler: RequestHandler = {
   canHandle() {
     return true;
   },
-  handle(handlerInput, error) {
-    console.log(`~~~~ Error handled: ${JSON.stringify(error)}`);
+  handle(handlerInput) {
+    console.log('\n******************* EXCEPTION **********************');
+    console.log('\n' + JSON.stringify(handlerInput.requestEnvelope, null, 2));
 
-    if (null != handlerInput.requestEnvelope.request.error) {
-      console.log(JSON.stringify(handlerInput.requestEnvelope.request.error));
-    }
-
-    const speakOutput = `Sorry, I had trouble doing what you asked. Please try again.`;
+    const speakOutput =
+      'Sorry, I had trouble doing what you asked. Please try again.';
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .reprompt(speakOutput)
       .withShouldEndSession(true)
       .getResponse();
-  }
+  },
 };
 
-module.exports = {
-  ErrorHandler
-};
+export { ErrorHandler };

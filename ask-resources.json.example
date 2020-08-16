@@ -7,13 +7,13 @@
       },
       "code": {
         "default": {
-          "src": "./lambda/custom"
+          "src": "./lambda/custom/.build"
         }
       },
       "skillInfrastructure": {
         "userConfig": {
           "runtime": "nodejs12.x",
-          "handler": "index.handler",
+          "handler": "src/index.handler",
           "templatePath": "./infrastructure/cfn-deployer/skill-stack.yaml",
           "awsRegion": "us-east-2"
         },

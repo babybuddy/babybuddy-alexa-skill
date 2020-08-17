@@ -446,6 +446,7 @@
                 },
                 {
                     "name": "StopFeedingIntent",
+                    "delegationStrategy": "SKILL_RESPONSE",
                     "confirmationRequired": false,
                     "prompts": {},
                     "slots": [
@@ -463,7 +464,13 @@
                             "elicitationRequired": true,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1347580264165.418331009805"
-                            }
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.566357014153.620720668664.113349554442"
+                                }
+                            ]
                         },
                         {
                             "name": "Method",
@@ -472,7 +479,19 @@
                             "elicitationRequired": true,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1347580264165.591748185545"
-                            }
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.566357014153.635315124524.1580400682741",
+                                    "values": [
+                                        "bottle",
+                                        "left breast",
+                                        "right breast",
+                                        "both breasts"
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "Amount",
@@ -513,7 +532,13 @@
                             "elicitationRequired": true,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1254429708032.232215202220"
-                            }
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.1210990104335.190025468125.1364651012026"
+                                }
+                            ]
                         },
                         {
                             "name": "Color",
@@ -690,6 +715,33 @@
                     {
                         "type": "PlainText",
                         "value": "which child"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.566357014153.635315124524.1580400682741",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say bottle, left breast, right breast, or both breasts"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1210990104335.190025468125.1364651012026",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either yes or no."
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.566357014153.620720668664.113349554442",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either formula, breast milk, or fortified breast milk"
                     }
                 ]
             }

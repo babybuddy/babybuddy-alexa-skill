@@ -56,29 +56,8 @@ const FeedingIntentHandler: RequestHandler = {
         `requestEnvelope: ${JSON.stringify(handlerInput.requestEnvelope)}`
       );
 
-      let type = 'breast milk';
-      const typeResolvedSlot = getResolvedSlotValue(
-        handlerInput.requestEnvelope,
-        'Type'
-      );
-
-      if (typeResolvedSlot) {
-        type = typeResolvedSlot;
-      } else {
-        speakOutput += `  I had trouble recording the feeding type.  Setting to ${type}.`;
-      }
-
-      let method = 'bottle';
-      const methodResolvedSlot = getResolvedSlotValue(
-        handlerInput.requestEnvelope,
-        'Method'
-      );
-
-      if (methodResolvedSlot) {
-        method = methodResolvedSlot;
-      } else {
-        speakOutput += `  I had trouble recording the feeding type.  Setting to ${method}.`;
-      }
+      const type = getSlotValue(handlerInput.requestEnvelope, 'Type');
+      const method = getSlotValue(handlerInput.requestEnvelope, 'Method');
 
       let amount = 0;
       const amountString = getSlotValue(handlerInput.requestEnvelope, 'Amount');

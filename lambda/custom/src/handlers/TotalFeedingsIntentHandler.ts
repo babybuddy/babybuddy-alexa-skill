@@ -61,7 +61,7 @@ const TotalFeedingsIntentHandler: RequestHandler = {
     if (!todaysFeedings || todaysFeedings.length === 0) {
       return handlerInput.responseBuilder
         .speak(
-          '{selectedChild.first_name} doesn\'t currently have any feedings recorded today.'
+          `${selectedChild.first_name} doesn\'t currently have any feedings recorded today.`
         )
         .getResponse();
     }

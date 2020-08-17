@@ -3,7 +3,11 @@ import {
   getRequestType,
   getIntentName,
   getSlotValue,
+  getDialogState,
+  getRequest
 } from 'ask-sdk-core';
+
+import { IntentRequest } from 'ask-sdk-model';
 
 import { babyBuddy } from '../babybuddy';
 
@@ -13,6 +17,19 @@ import {
   getSelectedChild,
   getResolvedSlotValue,
 } from './helpers';
+
+enum FeedingType {
+  FORMULA = 'formula',
+  BREAST_MILK = 'breast milk',
+  FORTIFIED_BREAST_MILK = 'fortified breast milk'
+}
+
+enum FeedingMethod {
+  BOTTLE = 'bottle',
+  LEFT_BREAST = 'left breast',
+  RIGHT_BREAST = 'right breast',
+  BOTH_BREASTS = 'both breasts'
+}
 
 const FeedingIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -50,6 +67,25 @@ const FeedingIntentHandler: RequestHandler = {
         await babyBuddy.startTimer(TimerTypes.FEEDING, selectedChild.id);
         speakOutput = `Starting feeding for ${selectedChild.first_name}`;
       }
+    } else if (getDialogState(handlerInput.requestEnvelope) !== 'COMPLETED') {
+      const type = getSlotValue(handlerInput.requestEnvelope, 'Type');
+
+      if (type === FeedingType.FORMULA) {
+        const request = getRequest<IntentRequest>(handlerInput.requestEnvelope);
+        const intent = request.intent;
+        if (intent && intent.slots) {
+          intent.slots.Method.value = FeedingMethod.BOTTLE;
+        }
+
+        return handlerInput.responseBuilder
+          .addDelegateDirective(intent)
+          .withShouldEndSession(false)
+          .getResponse();
+      }
+
+      return handlerInput.responseBuilder
+        .addDelegateDirective()
+        .getResponse();
     } else if (selectedChildTimer) {
       speakOutput = `Stopping feeding for ${selectedChild.first_name}.`;
       console.log(
@@ -94,4 +130,6 @@ const FeedingIntentHandler: RequestHandler = {
   },
 };
 
-export { FeedingIntentHandler };
+export {
+  FeedingIntentHandler
+};

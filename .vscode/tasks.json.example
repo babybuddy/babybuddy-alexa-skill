@@ -4,7 +4,7 @@
 		{
 			"type": "npm",
 			"script": "compile",
-			"path": ".ask/lambda/custom/",
+			"path": "lambda/custom/.build",
 			"group": "build",
 			"problemMatcher": [],
 			"label": "npm: compile - .ask/lambda/custom",

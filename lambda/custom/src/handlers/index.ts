@@ -9,6 +9,7 @@ import { LastFeedingIntentHandler } from './LastFeedingIntentHandler';
 import { LaunchRequestHandler } from './LaunchRequestHandler';
 import { SessionEndedRequestHandler } from './SessionEndedRequestHandler';
 import { SleepIntentHandler } from './SleepIntentHandler';
+import { TotalFeedingsIntentHandler } from './TotalFeedingsIntentHandler';
 import { TummyTimeIntentHandler } from './TummyTimeIntentHandler';
 
 export {
@@ -23,5 +24,6 @@ export {
   LaunchRequestHandler,
   SessionEndedRequestHandler,
   SleepIntentHandler,
+  TotalFeedingsIntentHandler,
   TummyTimeIntentHandler,
 };

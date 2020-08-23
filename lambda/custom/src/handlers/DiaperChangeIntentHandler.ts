@@ -7,7 +7,9 @@ import {
 
 import { babyBuddy } from '../babybuddy';
 
-import { getSelectedChild, getResolvedSlotValue } from './helpers';
+import {
+  getSelectedChild,
+} from './helpers';
 
 const DiaperChangeIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -21,34 +23,25 @@ const DiaperChangeIntentHandler: RequestHandler = {
 
     const name = getSlotValue(handlerInput.requestEnvelope, 'Name');
 
-    let wet = false;
-    const wetResolvedSlot = getResolvedSlotValue(
-      handlerInput.requestEnvelope,
-      'Wet'
-    );
+    console.log(`name: ${name}`);
 
-    if (wetResolvedSlot) {
-      wet = wetResolvedSlot === 'yes';
-    } else {
-      speakOutput +=
-        '  I had trouble recording whether the diaper was wet.  Setting to false.';
-    }
+    const wetValue = getSlotValue(handlerInput.requestEnvelope, 'Wet');
+    const solidValue = getSlotValue(handlerInput.requestEnvelope, 'Solid');
 
-    let solid = false;
-    const solidResolvedSlot = getResolvedSlotValue(
-      handlerInput.requestEnvelope,
-      'Solid'
-    );
+    console.log(`wetValue: ${wetValue}`);
+    console.log(`solidValue: ${solidValue}`);
 
-    if (solidResolvedSlot) {
-      solid = solidResolvedSlot === 'yes';
-    } else {
-      speakOutput +=
-        '  I had trouble recording whether the diaper was solid.  Setting to false.';
-    }
+    const wet = wetValue === 'yes';
+    const solid = solidValue === 'yes';
+
+    console.log(`wet: ${wet}`);
+    console.log(`solid: ${solid}`);
 
     const color = getSlotValue(handlerInput.requestEnvelope, 'Color');
     const amountString = getSlotValue(handlerInput.requestEnvelope, 'Amount');
+
+    console.log(`color: ${color}`);
+    console.log(`amountString: ${amountString}`);
 
     const selectedChild = await getSelectedChild(name);
 

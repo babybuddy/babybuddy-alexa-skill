@@ -320,22 +320,12 @@
                     "values": [
                         {
                             "name": {
-                                "value": "no",
-                                "synonyms": [
-                                    "negative",
-                                    "false"
-                                ]
+                                "value": "no"
                             }
                         },
                         {
                             "name": {
-                                "value": "yes",
-                                "synonyms": [
-                                    "obviously",
-                                    "of course",
-                                    "true",
-                                    "yeah"
-                                ]
+                                "value": "yes"
                             }
                         }
                     ]
@@ -345,22 +335,12 @@
                     "values": [
                         {
                             "name": {
-                                "value": "no",
-                                "synonyms": [
-                                    "false",
-                                    "negative"
-                                ]
+                                "value": "no"
                             }
                         },
                         {
                             "name": {
-                                "value": "yes",
-                                "synonyms": [
-                                    "obviously",
-                                    "of course",
-                                    "affirmative",
-                                    "yeah"
-                                ]
+                                "value": "yes"
                             }
                         }
                     ]
@@ -485,10 +465,10 @@
                                     "type": "isInSet",
                                     "prompt": "Slot.Validation.566357014153.635315124524.1580400682741",
                                     "values": [
-                                        "bottle",
-                                        "left breast",
                                         "right breast",
-                                        "both breasts"
+                                        "both breasts",
+                                        "bottle",
+                                        "left breast"
                                     ]
                                 }
                             ]
@@ -523,7 +503,13 @@
                             "elicitationRequired": true,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1254429708032.325141027658"
-                            }
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.238753431432.1119166678649.805574836831"
+                                }
+                            ]
                         },
                         {
                             "name": "Solid",
@@ -547,7 +533,13 @@
                             "elicitationRequired": true,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1254429708032.1417592628713"
-                            }
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.519221715479.1265812143869.1405679820821"
+                                }
+                            ]
                         },
                         {
                             "name": "Amount",
@@ -742,6 +734,24 @@
                     {
                         "type": "PlainText",
                         "value": "Please say either formula, breast milk, or fortified breast milk"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.519221715479.1265812143869.1405679820821",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either brown, black, green, or yellow"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.238753431432.1119166678649.805574836831",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either yes or no"
                     }
                 ]
             }

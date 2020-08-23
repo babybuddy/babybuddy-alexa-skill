@@ -10,7 +10,7 @@ import {
 enum TimerTypes {
   FEEDING = 'feeding',
   SLEEPING = 'sleeping',
-  TUMMY_TIME = 'tummy_time',
+  TUMMY_TIME = 'tummy time',
 }
 
 const getTimersForIdentifier: (identifier: string) => Promise<Timer[]> = async (identifier: string) => {
@@ -33,22 +33,6 @@ const getSelectedChild: (name: string) => Promise<Child | undefined> = async (na
   }
 };
 
-const getResolvedSlotValue: (requestEnvelope: RequestEnvelope, slotName: string) => string | undefined = (
-  requestEnvelope: RequestEnvelope,
-  slotName: string
-) => {
-  const slot = getSlot(requestEnvelope, slotName);
-  const resolutions = slot.resolutions?.resolutionsPerAuthority;
-  const resolution = resolutions?.find(x => x !== undefined);
-
-  if (resolution?.status.code === 'ER_SUCCESS_MATCH') {
-    const value = resolution.values.find(x => x !== undefined);
-    return value?.value.name;
-  } else {
-    return undefined;
-  }
-};
-
 const getMinutesFromDurationString: (duration: string) => number = (duration: string) => {
   const [hourString, minuteString, secondString] = duration.split(':');
   const minutes =
@@ -62,6 +46,5 @@ export {
   TimerTypes,
   getTimersForIdentifier,
   getSelectedChild,
-  getResolvedSlotValue,
   getMinutesFromDurationString,
 };

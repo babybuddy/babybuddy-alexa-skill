@@ -376,32 +376,19 @@
                         {
                             "id": "sleeping",
                             "name": {
-                                "value": "sleeping",
-                                "synonyms": [
-                                    "napping",
-                                    "nap",
-                                    "sleep"
-                                ]
+                                "value": "sleeping"
                             }
                         },
                         {
                             "id": "tummy_time",
                             "name": {
-                                "value": "tummy time",
-                                "synonyms": [
-                                    "tummy"
-                                ]
+                                "value": "tummy time"
                             }
                         },
                         {
                             "id": "feeding",
                             "name": {
-                                "value": "feeding",
-                                "synonyms": [
-                                    "eating",
-                                    "eat",
-                                    "feed"
-                                ]
+                                "value": "feeding"
                             }
                         }
                     ]
@@ -564,7 +551,13 @@
                             "elicitationRequired": true,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.346572812367.292275373860"
-                            }
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.21090862141.1133062558233.204061901969"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -580,7 +573,13 @@
                             "elicitationRequired": true,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.931506411176.1228634577598"
-                            }
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.997851033882.462468065355.204149590670"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -752,6 +751,24 @@
                     {
                         "type": "PlainText",
                         "value": "Please say either yes or no"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.21090862141.1133062558233.204061901969",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either feeding, sleeping, or tummy time."
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.997851033882.462468065355.204149590670",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either feeding, sleeping, or tummy time."
                     }
                 ]
             }

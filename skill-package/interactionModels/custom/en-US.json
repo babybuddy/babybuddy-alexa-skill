@@ -28,6 +28,8 @@
                         }
                     ],
                     "samples": [
+                        "start a feeding for {Name}",
+                        "start a feeding",
                         "start feeding",
                         "start feeding for {Name}"
                     ]
@@ -64,6 +66,8 @@
                         }
                     ],
                     "samples": [
+                        "stop a feeding for {Name}",
+                        "stop a feeding",
                         "stop feeding",
                         "stop feeding for {Name}"
                     ]
@@ -133,6 +137,12 @@
                         }
                     ],
                     "samples": [
+                        "start a diaper change",
+                        "start a diaper change for {Name}",
+                        "record a diaper change for {Name}",
+                        "log a diaper change for {Name}",
+                        "record a diaper change",
+                        "log a diaper change",
                         "log diaper change for {Name}",
                         "record diaper change for {Name}",
                         "diaper change for {Name}",
@@ -153,6 +163,8 @@
                         }
                     ],
                     "samples": [
+                        "start a tummy time for {Name}",
+                        "start a tummy time",
                         "start tummy time for {Name}",
                         "start tummy time"
                     ]
@@ -166,6 +178,8 @@
                         }
                     ],
                     "samples": [
+                        "stop a tummy time for {Name}",
+                        "stop a tummy time",
                         "stop tummy time for {Name}",
                         "stop tummy time"
                     ]

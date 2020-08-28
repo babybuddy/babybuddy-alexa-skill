@@ -107,23 +107,30 @@
                         },
                         {
                             "name": "Wet",
-                            "type": "WET_TYPE",
+                            "type": "YES_NO",
                             "samples": [
                                 "{Wet}"
                             ]
                         },
                         {
                             "name": "Solid",
-                            "type": "SOLID_TYPE",
+                            "type": "YES_NO",
                             "samples": [
                                 "{Solid}"
+                            ]
+                        },
+                        {
+                            "name": "ShouldAddMoreDetails",
+                            "type": "YES_NO",
+                            "samples": [
+                                "{ShouldAddMoreDetails}"
                             ]
                         },
                         {
                             "name": "Color",
                             "type": "POOP_COLOR",
                             "samples": [
-                                "{Color} "
+                                "{Color}"
                             ]
                         },
                         {
@@ -330,22 +337,7 @@
                     ]
                 },
                 {
-                    "name": "WET_TYPE",
-                    "values": [
-                        {
-                            "name": {
-                                "value": "no"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "yes"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "SOLID_TYPE",
+                    "name": "YES_NO",
                     "values": [
                         {
                             "name": {
@@ -463,14 +455,8 @@
                             },
                             "validations": [
                                 {
-                                    "type": "isInSet",
-                                    "prompt": "Slot.Validation.566357014153.635315124524.1580400682741",
-                                    "values": [
-                                        "right breast",
-                                        "both breasts",
-                                        "bottle",
-                                        "left breast"
-                                    ]
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.1078830774067.1378775091239.152658764803"
                                 }
                             ]
                         },
@@ -487,6 +473,7 @@
                 },
                 {
                     "name": "RecordDiaperChangeIntent",
+                    "delegationStrategy": "SKILL_RESPONSE",
                     "confirmationRequired": false,
                     "prompts": {},
                     "slots": [
@@ -499,7 +486,7 @@
                         },
                         {
                             "name": "Wet",
-                            "type": "WET_TYPE",
+                            "type": "YES_NO",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
@@ -514,7 +501,7 @@
                         },
                         {
                             "name": "Solid",
-                            "type": "SOLID_TYPE",
+                            "type": "YES_NO",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
@@ -523,7 +510,22 @@
                             "validations": [
                                 {
                                     "type": "hasEntityResolutionMatch",
-                                    "prompt": "Slot.Validation.1210990104335.190025468125.1364651012026"
+                                    "prompt": "Slot.Validation.789848152548.290406697630.670276891468"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "ShouldAddMoreDetails",
+                            "type": "YES_NO",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.789848152548.917207572680"
+                            },
+                            "validations": [
+                                {
+                                    "type": "hasEntityResolutionMatch",
+                                    "prompt": "Slot.Validation.789848152548.917207572680.1285102908097"
                                 }
                             ]
                         },
@@ -533,14 +535,8 @@
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.1254429708032.1417592628713"
-                            },
-                            "validations": [
-                                {
-                                    "type": "hasEntityResolutionMatch",
-                                    "prompt": "Slot.Validation.519221715479.1265812143869.1405679820821"
-                                }
-                            ]
+                                "elicitation": "Elicit.Slot.443302079243.1371722513896"
+                            }
                         },
                         {
                             "name": "Amount",
@@ -724,15 +720,6 @@
                 ]
             },
             {
-                "id": "Slot.Validation.566357014153.635315124524.1580400682741",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Please say bottle, left breast, right breast, or both breasts"
-                    }
-                ]
-            },
-            {
                 "id": "Slot.Validation.1210990104335.190025468125.1364651012026",
                 "variations": [
                     {
@@ -751,20 +738,11 @@
                 ]
             },
             {
-                "id": "Slot.Validation.519221715479.1265812143869.1405679820821",
-                "variations": [
-                    {
-                        "type": "PlainText",
-                        "value": "Please say either brown, black, green, or yellow"
-                    }
-                ]
-            },
-            {
                 "id": "Slot.Validation.238753431432.1119166678649.805574836831",
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Please say either yes or no"
+                        "value": "Please say either yes or no.  Was it wet?"
                     }
                 ]
             },
@@ -783,6 +761,69 @@
                     {
                         "type": "PlainText",
                         "value": "Please say either feeding, sleeping, or tummy time."
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.789848152548.290406697630.670276891468",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either yes or no.  Was it solid?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.789848152548.803901624367.773176995604",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either yes or no"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.789848152548.128475904799.747950116698",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either yes or no"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.789848152548.917207572680",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Would you like to add more details like amount and color?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.789848152548.917207572680.1285102908097",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say either yes or no.  Would you like to add more details?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1078830774067.1378775091239.152658764803",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please say bottle, left breast, right breast, or both breasts"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.443302079243.1371722513896",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Was is brown, black, green, or yellow?"
                     }
                 ]
             }

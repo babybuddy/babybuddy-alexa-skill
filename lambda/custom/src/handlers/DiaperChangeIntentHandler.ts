@@ -3,11 +3,17 @@ import {
   getIntentName,
   RequestHandler,
   getSlotValue,
+  getDialogState,
+  getRequest,
 } from 'ask-sdk-core';
 
-import { babyBuddy } from '../babybuddy';
+import { IntentRequest } from 'ask-sdk-model';
 
-import { getSelectedChild, getResolvedSlotValue } from './helpers';
+import { babyBuddy, CreateDiaperChange } from '../babybuddy';
+
+import {
+  getSelectedChild,
+} from './helpers';
 
 const DiaperChangeIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -17,38 +23,66 @@ const DiaperChangeIntentHandler: RequestHandler = {
     );
   },
   async handle(handlerInput) {
+    if (getDialogState(handlerInput.requestEnvelope) !== 'COMPLETED') {
+      const wetValue = getSlotValue(handlerInput.requestEnvelope, 'Wet');
+      const solidValue = getSlotValue(handlerInput.requestEnvelope, 'Solid');
+      const shouldAddMoreDetails = getSlotValue(handlerInput.requestEnvelope, 'ShouldAddMoreDetails');
+
+      const request = getRequest<IntentRequest>(handlerInput.requestEnvelope);
+      const intent = request.intent;
+
+      if (wetValue === 'no' && solidValue === 'no') {
+        return handlerInput.responseBuilder
+          .speak(
+            'In order to record a diaper change, it must be either wet, or solid, or both.'
+          )
+          .withShouldEndSession(true)
+          .getResponse();
+      }
+
+      if (shouldAddMoreDetails === 'no') {
+        if (intent && intent.slots) {
+          intent.slots.Color.value = 'yellow';
+          intent.slots.Amount.value = '0';
+        }
+
+        return handlerInput.responseBuilder
+          .addDelegateDirective(intent)
+          .withShouldEndSession(false)
+          .getResponse();
+      }
+
+      return handlerInput.responseBuilder
+        .addDelegateDirective()
+        .withShouldEndSession(false)
+        .getResponse();
+    }
+
     let speakOutput = '';
 
     const name = getSlotValue(handlerInput.requestEnvelope, 'Name');
 
-    let wet = false;
-    const wetResolvedSlot = getResolvedSlotValue(
-      handlerInput.requestEnvelope,
-      'Wet'
-    );
+    console.log(`name: ${name}`);
 
-    if (wetResolvedSlot) {
-      wet = wetResolvedSlot === 'yes';
-    } else {
-      speakOutput +=
-        '  I had trouble recording whether the diaper was wet.  Setting to false.';
-    }
+    const wetValue = getSlotValue(handlerInput.requestEnvelope, 'Wet');
+    const solidValue = getSlotValue(handlerInput.requestEnvelope, 'Solid');
 
-    let solid = false;
-    const solidResolvedSlot = getResolvedSlotValue(
-      handlerInput.requestEnvelope,
-      'Solid'
-    );
+    console.log(`wetValue: ${wetValue}`);
+    console.log(`solidValue: ${solidValue}`);
 
-    if (solidResolvedSlot) {
-      solid = solidResolvedSlot === 'yes';
-    } else {
-      speakOutput +=
-        '  I had trouble recording whether the diaper was solid.  Setting to false.';
-    }
+    const wet = wetValue === 'yes';
+    const solid = solidValue === 'yes';
+
+    console.log(`wet: ${wet}`);
+    console.log(`solid: ${solid}`);
+
+    const shouldAddMoreDetails = getSlotValue(handlerInput.requestEnvelope, 'ShouldAddMoreDetails') === 'yes';
 
     const color = getSlotValue(handlerInput.requestEnvelope, 'Color');
     const amountString = getSlotValue(handlerInput.requestEnvelope, 'Amount');
+
+    console.log(`color: ${color}`);
+    console.log(`amountString: ${amountString}`);
 
     const selectedChild = await getSelectedChild(name);
 
@@ -62,23 +96,29 @@ const DiaperChangeIntentHandler: RequestHandler = {
 
     speakOutput = `Recording diaper change for ${selectedChild.first_name}`;
 
-    let amount = 0;
-
-    if (amountString === '?') {
-      speakOutput +=
-        '  I had trouble recording the amount.  Please update the value through the web interface.';
-      amount = 0;
-    } else {
-      amount = parseInt(amountString);
-    }
-
-    await babyBuddy.createDiaperChange({
+    const payload: CreateDiaperChange = {
       child: selectedChild.id,
       wet,
-      solid,
-      color,
-      amount,
-    });
+      solid
+    };
+
+    if (shouldAddMoreDetails) {
+      payload.color = color;
+
+      let amount = 0;
+
+      if (amountString === '?') {
+        speakOutput +=
+          '  I had trouble recording the amount.  Please update the value through the web interface.';
+        amount = 0;
+      } else {
+        amount = parseInt(amountString);
+        payload.amount = amount;
+      }
+    }
+
+    const response = await babyBuddy.createDiaperChange(payload);
+    console.log(response);
 
     return handlerInput.responseBuilder
       .speak(speakOutput)

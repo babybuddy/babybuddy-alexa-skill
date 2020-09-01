@@ -3,16 +3,106 @@ import {
   getRequestType,
   getIntentName,
   getSlotValue,
+  getDialogState,
+  getRequest,
+  HandlerInput
 } from 'ask-sdk-core';
 
-import { babyBuddy } from '../babybuddy';
+import { IntentRequest, Response } from 'ask-sdk-model';
+
+import { babyBuddy, Child, Timer } from '../babybuddy';
 
 import {
   TimerTypes,
   getTimersForIdentifier,
   getSelectedChild,
-  getResolvedSlotValue,
 } from './helpers';
+
+enum FeedingType {
+  FORMULA = 'formula',
+  BREAST_MILK = 'breast milk',
+  FORTIFIED_BREAST_MILK = 'fortified breast milk'
+}
+
+enum FeedingMethod {
+  BOTTLE = 'bottle',
+  LEFT_BREAST = 'left breast',
+  RIGHT_BREAST = 'right breast',
+  BOTH_BREASTS = 'both breasts'
+}
+
+type HandleDialogFunction = (handlerInput: HandlerInput) => Response;
+type StartFeedingFunction = (selectedChild: Child, selectedChildTimer: Timer | undefined) => Promise<string>;
+type StopFeedingFunction = (handlerInput: HandlerInput, selectedChild: Child, selectedChildTimer: Timer) => Promise<string>;
+
+const handleDialog: HandleDialogFunction = (handlerInput: HandlerInput) => {
+  const type = getSlotValue(handlerInput.requestEnvelope, 'Type');
+
+  if (type === FeedingType.FORMULA) {
+    const request = getRequest<IntentRequest>(handlerInput.requestEnvelope);
+    const intent = request.intent;
+    if (intent && intent.slots) {
+      intent.slots.Method.value = FeedingMethod.BOTTLE;
+    }
+
+    return handlerInput.responseBuilder
+      .addDelegateDirective(intent)
+      .withShouldEndSession(false)
+      .getResponse();
+  }
+
+  return handlerInput.responseBuilder
+    .addDelegateDirective()
+    .getResponse();
+};
+
+const startFeeding: StartFeedingFunction = async (selectedChild, selectedChildTimer) => {
+  let speakOutput = '';
+
+  if (selectedChildTimer) {
+    speakOutput = `You already have a feeding started for ${selectedChild.first_name}`;
+  } else {
+    await babyBuddy.startTimer(TimerTypes.FEEDING, selectedChild.id);
+    speakOutput = `Starting feeding for ${selectedChild.first_name}`;
+  }
+
+  return speakOutput;
+};
+
+const stopFeeding: StopFeedingFunction = async (handlerInput: HandlerInput, selectedChild: Child, selectedChildTimer: Timer) => {
+  let speakOutput = `Stopping feeding for ${selectedChild.first_name}.`;
+  console.log(
+    `requestEnvelope: ${JSON.stringify(handlerInput.requestEnvelope)}`
+  );
+
+  const type = getSlotValue(handlerInput.requestEnvelope, 'Type');
+  const method = getSlotValue(handlerInput.requestEnvelope, 'Method');
+
+  let amount = 0;
+  const amountString = getSlotValue(handlerInput.requestEnvelope, 'Amount');
+
+  if (amountString === '?') {
+    speakOutput +=
+      '  I had trouble recording the feeding amount.  Setting to 0.';
+    amount = 0;
+  } else {
+    amount = parseInt(amountString);
+  }
+
+  console.log(
+    `child: ${selectedChild.id}, timer: ${selectedChildTimer.id}, type: ${type}, method: ${method}, amountString: ${amountString}`
+  );
+
+  await babyBuddy.createFeeding({
+    child: selectedChild.id,
+    timer: selectedChildTimer.id,
+    type,
+    method,
+    amount,
+  });
+
+  return speakOutput;
+};
 
 const FeedingIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -44,64 +134,11 @@ const FeedingIntentHandler: RequestHandler = {
     );
 
     if (getIntentName(handlerInput.requestEnvelope) === 'StartFeedingIntent') {
-      if (selectedChildTimer) {
-        speakOutput = `You already have a feeding started for ${selectedChild.first_name}`;
-      } else {
-        await babyBuddy.startTimer(TimerTypes.FEEDING, selectedChild.id);
-        speakOutput = `Starting feeding for ${selectedChild.first_name}`;
-      }
+      speakOutput = await startFeeding(selectedChild, selectedChildTimer);
+    } else if (getDialogState(handlerInput.requestEnvelope) !== 'COMPLETED') {
+      return handleDialog(handlerInput);
     } else if (selectedChildTimer) {
-      speakOutput = `Stopping feeding for ${selectedChild.first_name}.`;
-      console.log(
-        `requestEnvelope: ${JSON.stringify(handlerInput.requestEnvelope)}`
-      );
-
-      let type = 'breast milk';
-      const typeResolvedSlot = getResolvedSlotValue(
-        handlerInput.requestEnvelope,
-        'Type'
-      );
-
-      if (typeResolvedSlot) {
-        type = typeResolvedSlot;
-      } else {
-        speakOutput += `  I had trouble recording the feeding type.  Setting to ${type}.`;
-      }
-
-      let method = 'bottle';
-      const methodResolvedSlot = getResolvedSlotValue(
-        handlerInput.requestEnvelope,
-        'Method'
-      );
-
-      if (methodResolvedSlot) {
-        method = methodResolvedSlot;
-      } else {
-        speakOutput += `  I had trouble recording the feeding type.  Setting to ${method}.`;
-      }
-
-      let amount = 0;
-      const amountString = getSlotValue(handlerInput.requestEnvelope, 'Amount');
-
-      if (amountString === '?') {
-        speakOutput +=
-          '  I had trouble recording the feeding amount.  Setting to 0.';
-        amount = 0;
-      } else {
-        amount = parseInt(amountString);
-      }
-
-      console.log(
-        `child: ${selectedChild.id}, timer: ${selectedChildTimer.id}, type: ${type}, method: ${method}, amountString: ${amountString}`
-      );
-
-      await babyBuddy.createFeeding({
-        child: selectedChild.id,
-        timer: selectedChildTimer.id,
-        type,
-        method,
-        amount,
-      });
+      speakOutput = await stopFeeding(handlerInput, selectedChild, selectedChildTimer);
     } else {
       speakOutput = `You don't have a feeding started for ${selectedChild.first_name}`;
     }
@@ -115,4 +152,6 @@ const FeedingIntentHandler: RequestHandler = {
   },
 };
 
-export { FeedingIntentHandler };
+export {
+  FeedingIntentHandler
+};

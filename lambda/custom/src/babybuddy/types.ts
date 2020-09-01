@@ -59,8 +59,8 @@ interface CreateDiaperChange {
   child: string;
   wet: boolean;
   solid: boolean;
-  color: string;
-  amount: number;
+  color?: string;
+  amount?: number;
 }
 
 interface Secret {

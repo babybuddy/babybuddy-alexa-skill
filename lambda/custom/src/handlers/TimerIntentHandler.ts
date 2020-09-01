@@ -1,8 +1,13 @@
-import { RequestHandler, getRequestType, getIntentName } from 'ask-sdk-core';
+import {
+  RequestHandler,
+  getRequestType,
+  getIntentName,
+  getSlotValue
+} from 'ask-sdk-core';
 
 import { babyBuddy } from '../babybuddy';
 
-import { getResolvedSlotValue, getMinutesFromDurationString } from './helpers';
+import { getMinutesFromDurationString } from './helpers';
 
 const TimerIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -15,16 +20,7 @@ const TimerIntentHandler: RequestHandler = {
   async handle(handlerInput) {
     let speakOutput = '';
 
-    const timer = getResolvedSlotValue(handlerInput.requestEnvelope, 'Timer');
-
-    if (!timer) {
-      speakOutput =
-        'That is not a valid timer type.  Valid timer types are feeding, sleeping, and tummy time';
-      return handlerInput.responseBuilder
-        .speak(speakOutput)
-        .withShouldEndSession(true)
-        .getResponse();
-    }
+    const timer = getSlotValue(handlerInput.requestEnvelope, 'Timer');
 
     const activeTimers = await babyBuddy.getActiveTimers();
     const inquiredTimer = activeTimers

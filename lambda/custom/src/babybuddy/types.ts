@@ -66,6 +66,8 @@ interface CreateDiaperChange {
 interface Secret {
   apiKey: string;
   apiUrl: string;
+  cfAccessClientId: string;
+  cfAccessClientSecret: string;
 }
 
 enum URLS {

@@ -13,10 +13,12 @@ import {
 
 const fetchSecrets: () => Promise<Secret> = async () => {
   return new Promise((resolve, reject) => {
-    if (process.env.BABY_BUDDY_API_KEY && process.env.BABY_BUDDY_API_URL) {
+    if (process.env.BABY_BUDDY_API_KEY && process.env.BABY_BUDDY_API_URL && process.env.CF_ACCESS_CLIENT_ID && process.env.CF_ACCESS_CLIENT_SECRET) {
       resolve({
         apiKey: process.env.BABY_BUDDY_API_KEY,
         apiUrl: process.env.BABY_BUDDY_API_URL,
+        cfAccessClientId: process.env.CF_ACCESS_CLIENT_ID,
+        cfAccessClientSecret: process.env.CF_ACCESS_CLIENT_SECRET
       });
     } else {
       reject('BABY_BUDDY_API_KEY and/or BABY_BUDDY_API_URL not defined!');
@@ -26,14 +28,16 @@ const fetchSecrets: () => Promise<Secret> = async () => {
 
 class BabyBuddyApi {
   async getRequest<T>(url: string): Promise<GetResponse<T>> {
-    const { apiKey, apiUrl } = await fetchSecrets();
+    const { apiKey, apiUrl, cfAccessClientId, cfAccessClientSecret } = await fetchSecrets();
 
     try {
       const response = await axios.get(url, {
         baseURL: apiUrl,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Token ${apiKey}`,
+            Authorization: `Token ${apiKey}`,
+            'CF-Access-Client-Id': `${cfAccessClientId}`,
+            'CF-Access-Client-Secret': `${cfAccessClientSecret}`
         },
       });
       console.log(
@@ -47,7 +51,7 @@ class BabyBuddyApi {
   }
 
   async postRequest(url: string, body: any) {
-    const { apiKey, apiUrl } = await fetchSecrets();
+    const { apiKey, apiUrl, cfAccessClientId, cfAccessClientSecret } = await fetchSecrets();
 
     try {
       const response = await axios.post(url, body, {
@@ -55,6 +59,8 @@ class BabyBuddyApi {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Token ${apiKey}`,
+          'CF-Access-Client-Id': `${cfAccessClientId}`,
+          'CF-Access-Client-Secret': `${cfAccessClientSecret}`
         },
       });
       console.log(
@@ -74,7 +80,7 @@ class BabyBuddyApi {
   }
 
   async deleteRequest(url: string) {
-    const { apiKey, apiUrl } = await fetchSecrets();
+    const { apiKey, apiUrl, cfAccessClientId, cfAccessClientSecret } = await fetchSecrets();
 
     try {
       const response = await axios.delete(url, {
@@ -82,6 +88,8 @@ class BabyBuddyApi {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Token ${apiKey}`,
+          'CF-Access-Client-Id': `${cfAccessClientId}`,
+          'CF-Access-Client-Secret': `${cfAccessClientSecret}`
         },
       });
       console.log(

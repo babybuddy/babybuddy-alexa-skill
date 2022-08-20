@@ -35,9 +35,9 @@ class BabyBuddyApi {
         baseURL: apiUrl,
         headers: {
           'Content-Type': 'application/json',
-            Authorization: `Token ${apiKey}`,
-            'CF-Access-Client-Id': `${cfAccessClientId}`,
-            'CF-Access-Client-Secret': `${cfAccessClientSecret}`
+          Authorization: `Token ${apiKey}`,
+          'CF-Access-Client-Id': `${cfAccessClientId}`,
+          'CF-Access-Client-Secret': `${cfAccessClientSecret}`
         },
       });
       console.log(

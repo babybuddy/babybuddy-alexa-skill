@@ -13,7 +13,7 @@ import {
 
 const fetchSecrets: () => Promise<Secret> = async () => {
   return new Promise((resolve, reject) => {
-    if (process.env.BABY_BUDDY_API_KEY && process.env.BABY_BUDDY_API_URL && process.env.CF_ACCESS_CLIENT_ID && process.env.CF_ACCESS_CLIENT_SECRET) {
+    if (process.env.BABY_BUDDY_API_KEY && process.env.BABY_BUDDY_API_URL) {
       const secrets: Secret = {
         apiKey: process.env.BABY_BUDDY_API_KEY,
         apiUrl: process.env.BABY_BUDDY_API_URL,

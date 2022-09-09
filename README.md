@@ -57,6 +57,10 @@ Alexa, ask Baby Buddy how much [Child's Name] has eaten today
 
 ## Dependencies
 
+### NVM
+
+This project uses [nvm](https://github.com/nvm-sh/nvm) for Node configuration.
+
 ### Yarn
 
 This project uses [yarn](https://yarnpkg.com/getting-started/install) for dependency management.
@@ -72,6 +76,7 @@ Note:  The ask-cli cannot be installed using yarn and has to be installed using 
 ### 1. Create ```skill.json```, ```ask-resources.json```, and ```ask-states.json```
 
 ```shell
+nvm use
 cd lambda/custom
 yarn
 yarn setup # Will prompt for Baby Buddy URL and API key

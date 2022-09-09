@@ -71,7 +71,7 @@ Note:  The ask-cli cannot be installed using yarn and has to be installed using 
 
 ### 1. Create ```skill.json```, ```ask-resources.json```, and ```ask-states.json```
 
-```
+```shell
 cd lambda/custom
 yarn
 yarn setup # Will prompt for Baby Buddy URL and API key
@@ -81,7 +81,9 @@ yarn setup # Will prompt for Baby Buddy URL and API key
 
 The ask-cli deploy command will automatically create the skill on your AWS account and a lambda function.  This needs to be done first in order to get local development to work.
 
-```
+Run the following command from the repo root:
+
+```shell
 ask deploy
 ```
 

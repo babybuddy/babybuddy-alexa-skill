@@ -14,27 +14,48 @@ import {
 const fetchSecrets: () => Promise<Secret> = async () => {
   return new Promise((resolve, reject) => {
     if (process.env.BABY_BUDDY_API_KEY && process.env.BABY_BUDDY_API_URL) {
-      resolve({
+      const secrets: Secret = {
         apiKey: process.env.BABY_BUDDY_API_KEY,
         apiUrl: process.env.BABY_BUDDY_API_URL,
-      });
+      };
+
+      if (process.env.CF_ACCESS_CLIENT_ID && process.env.CF_ACCESS_CLIENT_SECRET) {
+        secrets.cloudflare = {
+          cfAccessClientId: process.env.CF_ACCESS_CLIENT_ID,
+          cfAccessClientSecret: process.env.CF_ACCESS_CLIENT_SECRET
+        }
+      }
+      resolve(secrets);
     } else {
       reject('BABY_BUDDY_API_KEY and/or BABY_BUDDY_API_URL not defined!');
     }
   });
 };
 
+const buildHeaders: (secrets: Secret) => Promise<{[headerName: string]: string}> = async (secrets) => {
+  return new Promise((resolve) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${secrets.apiKey}`,
+    };
+
+    if (secrets.cloudflare) {
+      headers['CF-Access-Client-Id'] = `${secrets.cloudflare.cfAccessClientId}`;
+      headers['CF-Access-Client-Secret'] = `${secrets.cloudflare.cfAccessClientSecret}`;
+    }
+
+    resolve(headers);
+  });
+}
+
 class BabyBuddyApi {
   async getRequest<T>(url: string): Promise<GetResponse<T>> {
-    const { apiKey, apiUrl } = await fetchSecrets();
+    const secrets = await fetchSecrets();
 
     try {
       const response = await axios.get(url, {
-        baseURL: apiUrl,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${apiKey}`,
-        },
+        baseURL: secrets.apiUrl,
+        headers: await buildHeaders(secrets)
       });
       console.log(
         `getRequest(${url}), response: ${JSON.stringify(response.data)}`
@@ -47,15 +68,12 @@ class BabyBuddyApi {
   }
 
   async postRequest(url: string, body: any) {
-    const { apiKey, apiUrl } = await fetchSecrets();
+    const secrets = await fetchSecrets();
 
     try {
       const response = await axios.post(url, body, {
-        baseURL: apiUrl,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${apiKey}`,
-        },
+        baseURL: secrets.apiUrl,
+        headers: await buildHeaders(secrets)
       });
       console.log(
         `postRequest(${url}, ${JSON.stringify(
@@ -74,15 +92,12 @@ class BabyBuddyApi {
   }
 
   async deleteRequest(url: string) {
-    const { apiKey, apiUrl } = await fetchSecrets();
+    const secrets = await fetchSecrets();
 
     try {
       const response = await axios.delete(url, {
-        baseURL: apiUrl,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${apiKey}`,
-        },
+        baseURL: secrets.apiUrl,
+        headers: await buildHeaders(secrets)
       });
       console.log(
         `deleteRequest(${url}), response: ${JSON.stringify(response.data)}`

@@ -63,9 +63,15 @@ interface CreateDiaperChange {
   amount?: number;
 }
 
+interface CloudflareZeroTrustSecret {
+  cfAccessClientId: string;
+  cfAccessClientSecret: string;
+}
+
 interface Secret {
   apiKey: string;
   apiUrl: string;
+  cloudflare?: CloudflareZeroTrustSecret | null;
 }
 
 enum URLS {
@@ -89,6 +95,7 @@ export {
   Timer,
   Child,
   CreateDiaperChange,
+  CloudflareZeroTrustSecret,
   Secret,
   URLS
 };

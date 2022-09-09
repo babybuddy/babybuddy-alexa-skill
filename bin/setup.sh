@@ -29,10 +29,31 @@ if [[ ! -f $CONFIG_FILE ]]; then
 
   read BABY_BUDDY_API_KEY
 
+  echo -n "Do you wish to set up Cloudflare Zero Trust headers? [y/N]"
+
+  read cloudflare_yn
+
+  if [[ "$cloudflare_yn" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+      echo -n "Enter CF Client Id: "
+
+      read CF_ACCESS_CLIENT_ID
+
+      echo -n "Enter CF Client Secret: "
+
+      read CF_ACCESS_CLIENT_SECRET
+  fi
+
   touch $CONFIG_FILE
 
   cat > $CONFIG_FILE <<EOL
 BABY_BUDDY_API_KEY=${BABY_BUDDY_API_KEY}
 BABY_BUDDY_API_URL=${BABY_BUDDY_API_URL}
 EOL
+
+  if [ ! -z "$CF_ACCESS_CLIENT_ID" ]; then
+      cat >> $CONFIG_FILE <<EOL
+CF_ACCESS_CLIENT_ID=${CF_ACCESS_CLIENT_ID}
+CF_ACCESS_CLIENT_SECRET=${CF_ACCESS_CLIENT_SECRET}
+EOL
+  fi
 fi

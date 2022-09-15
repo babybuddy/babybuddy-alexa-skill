@@ -6,7 +6,7 @@ This is an Alexa skill to help supplement the [Baby Buddy](https://github.com/ba
 
 ### Minimum Baby Buddy version
 
-This skill requires Baby Buddy [v1.11.0](https://github.com/babybuddy/babybuddy/releases/tag/v1.11.0) to allow for diaper changes without any contents.
+This skill requires Baby Buddy [v1.11.0](https://github.com/babybuddy/babybuddy/releases/tag/v1.11.0) or newer to allow for diaper changes without any contents.
 
 ## Usage
 
@@ -41,6 +41,7 @@ Alexa, ask Baby Buddy to stop sleeping (for [Child's Name])
 
 ```
 Alexa, ask Baby Buddy to log diaper change (for [Child's Name])
+Alexa, ask Baby Buddy to record a [wet, solid, full, empty] diaper change (for [Child's Name])
 ```
 
 ### Last Feeding

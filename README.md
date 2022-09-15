@@ -6,7 +6,7 @@ This is an Alexa skill to help supplement the [Baby Buddy](https://github.com/ba
 
 ### Minimum Baby Buddy version
 
-This skill requires Baby Buddy v1.4.1 or newer as it relies on Baby Buddy's API allowing null values for the `Timer.user` field.
+This skill requires Baby Buddy [v1.11.0](https://github.com/babybuddy/babybuddy/releases/tag/v1.11.0) to allow for diaper changes without any contents.
 
 ## Usage
 

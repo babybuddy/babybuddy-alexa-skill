@@ -31,15 +31,6 @@ const DiaperChangeIntentHandler: RequestHandler = {
       const request = getRequest<IntentRequest>(handlerInput.requestEnvelope);
       const intent = request.intent;
 
-      if (wetValue === 'no' && solidValue === 'no') {
-        return handlerInput.responseBuilder
-          .speak(
-            'In order to record a diaper change, it must be either wet, or solid, or both.'
-          )
-          .withShouldEndSession(true)
-          .getResponse();
-      }
-
       if (shouldAddMoreDetails === 'no') {
         if (intent && intent.slots) {
           intent.slots.Color.value = 'yellow';

@@ -141,7 +141,14 @@
                                 "{Amount} ounces",
                                 "{Amount}"
                             ]
-                        }
+                        },
+                        {
+                            "name": "Contents",
+                            "type": "DIAPER_CONTENT_TYPE",
+                            "samples": [
+                                "{Contents}"
+                            ]
+                         }
                     ],
                     "samples": [
                         "start a diaper change",
@@ -158,7 +165,9 @@
                         "start diaper change",
                         "diaper change",
                         "record diaper change",
-                        "log diaper change"
+                        "log diaper change",
+                        "record a {Contents} diaper change",
+                        "record a {Contents} diaper change for {Name}"
                     ]
                 },
                 {
@@ -377,6 +386,35 @@
                     ]
                 },
                 {
+                    "name": "DIAPER_CONTENT_TYPE",
+                    "values": [
+                        {
+                            "id": "wet",
+                            "name": {
+                                "value": "wet"
+                            }
+                        },
+                        {
+                            "id": "solid",
+                            "name": {
+                                "value": "solid"
+                            }
+                        },
+                        {
+                            "id": "full",
+                            "name": {
+                                "value": "full"
+                            }
+                        },
+                        {
+                            "id": "empty",
+                            "name": {
+                                "value": "empty"
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "TIMER_TYPE",
                     "values": [
                         {
@@ -485,34 +523,31 @@
                             "prompts": {}
                         },
                         {
+                            "name": "Contents",
+                            "type": "DIAPER_CONTENT_TYPE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1254429708032.325141027658"
+                            }
+                        },
+                        {
                             "name": "Wet",
                             "type": "YES_NO",
                             "confirmationRequired": false,
-                            "elicitationRequired": true,
+                            "elicitationRequired": false,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1254429708032.325141027658"
-                            },
-                            "validations": [
-                                {
-                                    "type": "hasEntityResolutionMatch",
-                                    "prompt": "Slot.Validation.238753431432.1119166678649.805574836831"
-                                }
-                            ]
+                            }
                         },
                         {
                             "name": "Solid",
                             "type": "YES_NO",
                             "confirmationRequired": false,
-                            "elicitationRequired": true,
+                            "elicitationRequired": false,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1254429708032.232215202220"
-                            },
-                            "validations": [
-                                {
-                                    "type": "hasEntityResolutionMatch",
-                                    "prompt": "Slot.Validation.789848152548.290406697630.670276891468"
-                                }
-                            ]
+                            }
                         },
                         {
                             "name": "ShouldAddMoreDetails",
@@ -533,7 +568,7 @@
                             "name": "Color",
                             "type": "POOP_COLOR",
                             "confirmationRequired": false,
-                            "elicitationRequired": true,
+                            "elicitationRequired": false,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.443302079243.1371722513896"
                             }
@@ -542,7 +577,7 @@
                             "name": "Amount",
                             "type": "AMAZON.NUMBER",
                             "confirmationRequired": false,
-                            "elicitationRequired": true,
+                            "elicitationRequired": false,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1254429708032.592796569231"
                             }

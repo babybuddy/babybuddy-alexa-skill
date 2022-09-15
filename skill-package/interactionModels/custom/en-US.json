@@ -102,6 +102,22 @@
                     "name": "RecordDiaperChangeIntent",
                     "slots": [
                         {
+                            "name": "Action",
+                            "type": "ACTION_TYPE",
+                            "samples": [
+                                "{Action}",
+                                "{Action} a",
+                                "{Action} an"
+                            ]
+                        },
+                        {
+                            "name": "Contents",
+                            "type": "DIAPER_CONTENT_TYPE",
+                            "samples": [
+                                "{Contents}"
+                            ]
+                        },
+                        {
                             "name": "Name",
                             "type": "AMAZON.FirstName"
                         },
@@ -141,33 +157,16 @@
                                 "{Amount} ounces",
                                 "{Amount}"
                             ]
-                        },
-                        {
-                            "name": "Contents",
-                            "type": "DIAPER_CONTENT_TYPE",
-                            "samples": [
-                                "{Contents}"
-                            ]
-                         }
+                        }
                     ],
                     "samples": [
-                        "start a diaper change",
-                        "start a diaper change for {Name}",
-                        "record a diaper change for {Name}",
-                        "log a diaper change for {Name}",
-                        "record a diaper change",
-                        "log a diaper change",
-                        "log diaper change for {Name}",
-                        "record diaper change for {Name}",
+                        "{Action} diaper change for {Name}",
+                        "{Action} diaper change",
+                        "{Action} a {Contents} diaper change",
+                        "{Action} a {Contents} diaper change for {Name}",
                         "diaper change for {Name}",
-                        "start diaper change for {Name}",
                         "that {Name} went poopy",
-                        "start diaper change",
-                        "diaper change",
-                        "record diaper change",
-                        "log diaper change",
-                        "record a {Contents} diaper change",
-                        "record a {Contents} diaper change for {Name}"
+                        "diaper change"
                     ]
                 },
                 {
@@ -415,6 +414,29 @@
                     ]
                 },
                 {
+                    "name": "ACTION_TYPE",
+                    "values": [
+                        {
+                            "id": "record",
+                            "name": {
+                                "value": "record"
+                            }
+                        },
+                        {
+                            "id": "log",
+                            "name": {
+                                "value": "log"
+                            }
+                        },
+                        {
+                            "id": "start",
+                            "name": {
+                                "value": "start"
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "TIMER_TYPE",
                     "values": [
                         {
@@ -523,13 +545,20 @@
                             "prompts": {}
                         },
                         {
-                            "name": "Contents",
-                            "type": "DIAPER_CONTENT_TYPE",
+                            "name": "Action",
+                            "type": "ACTION_TYPE",
                             "confirmationRequired": false,
                             "elicitationRequired": false,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1254429708032.325141027658"
                             }
+                        },
+                        {
+                            "name": "Contents",
+                            "type": "DIAPER_CONTENT_TYPE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
                         },
                         {
                             "name": "Wet",

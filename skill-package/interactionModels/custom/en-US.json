@@ -24,7 +24,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "AMAZON.FirstName"
                         }
                     ],
                     "samples": [
@@ -39,7 +39,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "AMAZON.FirstName"
                         },
                         {
                             "name": "Type",
@@ -77,7 +77,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "AMAZON.FirstName"
                         }
                     ],
                     "samples": [
@@ -90,7 +90,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "AMAZON.FirstName"
                         }
                     ],
                     "samples": [
@@ -103,7 +103,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "AMAZON.FirstName"
                         },
                         {
                             "name": "Wet",
@@ -166,7 +166,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "AMAZON.FirstName"
                         }
                     ],
                     "samples": [
@@ -181,7 +181,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "AMAZON.FirstName"
                         }
                     ],
                     "samples": [
@@ -232,7 +232,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "AMAZON.FirstName"
                         }
                     ],
                     "samples": [
@@ -250,7 +250,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery"
+                            "type": "AMAZON.FirstName"
                         }
                     ],
                     "samples": [
@@ -410,7 +410,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery",
+                            "type": "AMAZON.FirstName",
                             "confirmationRequired": false,
                             "elicitationRequired": false,
                             "prompts": {}
@@ -425,7 +425,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery",
+                            "type": "AMAZON.FirstName",
                             "confirmationRequired": false,
                             "elicitationRequired": false,
                             "prompts": {}
@@ -479,7 +479,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery",
+                            "type": "AMAZON.FirstName",
                             "confirmationRequired": false,
                             "elicitationRequired": false,
                             "prompts": {}
@@ -600,7 +600,7 @@
                     "slots": [
                         {
                             "name": "Name",
-                            "type": "AMAZON.SearchQuery",
+                            "type": "AMAZON.FirstName",
                             "confirmationRequired": false,
                             "elicitationRequired": false,
                             "prompts": {}

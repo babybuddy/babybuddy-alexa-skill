@@ -24,7 +24,7 @@ const getSelectedChild: (name: string) => Promise<Child | undefined> = async (na
 
   if (name) {
     return children.find(child =>
-      child.first_name.toLowerCase().includes(name)
+      child.first_name.toLowerCase().includes(name.toLowerCase())
     );
   } else if (children.length === 1) {
     return children[0];

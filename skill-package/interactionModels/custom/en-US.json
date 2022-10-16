@@ -170,6 +170,29 @@
                     ]
                 },
                 {
+                    "name": "RecordTummyTimeIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.FirstName"
+                        },
+                        {
+                            "name": "Duration",
+                            "type": "AMAZON.DURATION"
+                         }
+                    ],
+                    "samples": [
+                        "record a tummy time for {Name}",
+                        "record a tummy time",
+                        "record a {Duration} tummy time",
+                        "record a {Duration} tummy time for {Name}",
+                        "log a tummy time",
+                        "log a tummy time for {Name}",
+                        "log a {Duration} tummy time",
+                        "log a {Duration} tummy time for {Name}"
+                    ]
+                },
+                {
                     "name": "StartTummyTimeIntent",
                     "slots": [
                         {
@@ -670,6 +693,29 @@
                             "prompts": {}
                         }
                     ]
+                },
+                {
+                    "name": "RecordTummyTimeIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.FirstName",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "Duration",
+                            "type": "AMAZON.DURATION",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.443302079243.1371722513897"
+                            }
+                        }
+                    ]
                 }
             ],
             "delegationStrategy": "ALWAYS"
@@ -890,7 +936,16 @@
                         "value": "Was it brown, black, green, or yellow?"
                     }
                 ]
-            }
+            },
+            {
+                "id": "Elicit.Slot.443302079243.1371722513897",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "How long was the tummy time?"
+                    }
+                ]
+             }
         ]
     }
 }

@@ -9,6 +9,7 @@ import {
   CreateDiaperChange,
   Secret,
   URLS,
+  CreateTummyTime,
 } from './types';
 
 const fetchSecrets: () => Promise<Secret> = async () => {
@@ -173,13 +174,8 @@ class BabyBuddyApi {
     return await this.postRequest(URLS.DIAPER_CHANGES, body);
   }
 
-  async createTummyTime(childId, timerId) {
-    const body = {
-      child: childId,
-      timer: timerId,
-    };
-
-    return await this.postRequest(URLS.TUMMY_TIMES, body);
+  async createTummyTime(tummyTime: CreateTummyTime) {
+    return await this.postRequest(URLS.TUMMY_TIMES, tummyTime);
   }
 }
 

@@ -49,7 +49,11 @@ const TummyTimeIntentHandler: RequestHandler = {
       }
     } else if (selectedChildTimer) {
       speakOutput = `Stopping tummy time for ${selectedChild.first_name}.`;
-      await babyBuddy.createTummyTime(selectedChild.id, selectedChildTimer.id);
+      await babyBuddy.createTummyTime(
+        {
+          child: selectedChild.id,
+          timer: selectedChildTimer.id
+        });
     } else {
       speakOutput = `You don't have a tummy time session started for ${selectedChild.first_name}`;
     }

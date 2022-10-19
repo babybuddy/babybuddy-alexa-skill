@@ -30,6 +30,17 @@ Alexa, ask Baby Buddy to start tummy time (for [Child's Name])
 Alexa, ask Baby Buddy to stop tummy time (for [Child's Name])
 ```
 
+Alternatively, you can record a Tummy Time entry with a duration, which will create an entry ending at the current time.
+
+```
+Alexa, ask Baby Buddy to record a 15 minute tummy time (for [Child's Name])
+Alexa, ask Baby Buddy to record a tummy time (for [Child's Name])
+Alexa, ask Baby Buddy to log a 25 minute tummy time (for [Child's Name])
+Alexa, ask Baby Buddy to log a tummy time (for [Child's Name])
+```
+
+If a duration is not provided Alexa will prompt you to provide it.
+
 ### Sleeping
 
 ```

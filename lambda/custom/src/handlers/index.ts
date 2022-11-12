@@ -11,8 +11,7 @@ import { SessionEndedRequestHandler } from './SessionEndedRequestHandler';
 import { SleepIntentHandler } from './SleepIntentHandler';
 import { TotalFeedingsIntentHandler } from './TotalFeedingsIntentHandler';
 import { TummyTimeIntentHandler } from './TummyTimeIntentHandler';
-import { RecordTummyTimeIntentHandler } from './RecordTummyTimeIntentHandler';
-import { RecordSleepIntentHandler } from './RecordSleepIntentHandler';
+import { RecordSimpleDurationIntentHandler } from './RecordSimpleDurationIntentHandler';
 
 export {
   CancelAndStopIntentHandler,
@@ -28,6 +27,5 @@ export {
   SleepIntentHandler,
   TotalFeedingsIntentHandler,
   TummyTimeIntentHandler,
-  RecordTummyTimeIntentHandler,
-  RecordSleepIntentHandler,
+  RecordSimpleDurationIntentHandler,
 };

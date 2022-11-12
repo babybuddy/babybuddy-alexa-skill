@@ -1,17 +1,4 @@
-import { babyBuddy } from './api';
-
-import {
-  GetResponse,
-  CreateFeeding,
-  FeedingType,
-  FeedingMethod,
-  Feeding,
-  Timer,
-  Child,
-  CreateDiaperChange,
-  URLS,
-  CreateTummyTime
-} from './types';
+export { babyBuddy } from './api';
 
 export {
   GetResponse,
@@ -23,6 +10,6 @@ export {
   Child,
   CreateDiaperChange,
   URLS,
-  babyBuddy,
-  CreateTummyTime
-};
+  CreateTummyTime,
+  SimpleChildTimer,
+} from './types';

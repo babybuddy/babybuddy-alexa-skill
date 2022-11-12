@@ -114,4 +114,5 @@ export {
   URLS,
   CreateTummyTime,
   CreateSleep,
+  SimpleChildTimer,
 };

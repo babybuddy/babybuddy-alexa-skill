@@ -11,19 +11,21 @@ import { IntentRequest } from 'ask-sdk-model';
 
 import * as moment from 'moment';
 
-import { babyBuddy } from '../babybuddy';
+import { babyBuddy, SimpleChildTimer } from '../babybuddy';
 
-import {
-  getSelectedChild,
-} from './helpers';
+import { getSelectedChild } from './helpers';
 
-const RecordTummyTimeIntentHandler: RequestHandler = {
+const RecordSimpleDurationIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
     return (
       getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === 'RecordTummyTimeIntent'
+        (
+          getIntentName(handlerInput.requestEnvelope) === 'RecordSleepIntent'
+            || getIntentName(handlerInput.requestEnvelope) === 'RecordTummyTimeIntent'
+        )
     );
   },
+
   async handle(handlerInput) {
     if (getDialogState(handlerInput.requestEnvelope) !== 'COMPLETED') {
       const request = getRequest<IntentRequest>(handlerInput.requestEnvelope);
@@ -39,6 +41,8 @@ const RecordTummyTimeIntentHandler: RequestHandler = {
     const durationISO8601 = getSlotValue(handlerInput.requestEnvelope, 'Duration');
     const duration = moment.duration(durationISO8601);
 
+    const action = getIntentName(handlerInput.requestEnvelope) === 'RecordSleepIntent' ? 'sleep' : 'tummy time';
+
     const now = moment();
     const beginning = moment().subtract(duration);
 
@@ -49,28 +53,33 @@ const RecordTummyTimeIntentHandler: RequestHandler = {
     if (!selectedChild) {
       return handlerInput.responseBuilder
         .speak(
-          'Please specify which child by saying, Ask Baby Buddy to record a feeding for Jack.'
+          `Please specify which child by saying, Ask Baby Buddy to record ${action} for Jack.`
         )
         .getResponse();
     }
 
     console.log(selectedChild);
 
-    const speakOutput = `Recording tummy time for ${selectedChild.first_name}`;
+    const apiInput: SimpleChildTimer = {
+      child: selectedChild.id,
+      start: beginning.toISOString(),
+      end: now.toISOString(),
+    };
 
-    await babyBuddy.createTummyTime(
-      {
-        child: selectedChild.id,
-        start: beginning.toISOString(),
-        end: now.toISOString()
-      }
-    );
+    let output = '';
+    if (action === 'tummy time') {
+      await babyBuddy.createTummyTime(apiInput);
+      output = `Recorded tummy time for ${selectedChild.first_name}`;
+    } else {
+      await babyBuddy.createSleep(apiInput);
+      output = `Recorded sleep for ${selectedChild.first_name}`;
+    }
 
     return handlerInput.responseBuilder
-      .speak(speakOutput)
+      .speak(output)
       .withShouldEndSession(true)
       .getResponse();
   },
 };
 
-export { RecordTummyTimeIntentHandler };
+export { RecordSimpleDurationIntentHandler };

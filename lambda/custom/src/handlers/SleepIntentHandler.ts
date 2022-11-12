@@ -47,7 +47,12 @@ const SleepIntentHandler: RequestHandler = {
       }
     } else if (selectedChildTimer) {
       speakOutput = `Stopping sleeping session for ${selectedChild.first_name}.`;
-      await babyBuddy.createSleep(selectedChild.id, selectedChildTimer.id);
+      await babyBuddy.createSleep(
+        {
+          child: selectedChild.id,
+          timer: selectedChildTimer.id
+        }
+      );
     } else {
       speakOutput = `You don't have a sleeping session started for ${selectedChild.first_name}`;
     }

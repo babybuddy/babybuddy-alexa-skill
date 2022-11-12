@@ -46,6 +46,8 @@ If a duration is not provided Alexa will prompt you to provide it.
 ```
 Alexa, ask Baby Buddy to start sleeping (for [Child's Name])
 Alexa, ask Baby Buddy to stop sleeping (for [Child's Name])
+Alexa, ask Baby Buddy to record 15 minutes of sleep (for [Child's Name])
+Alexa, ask Baby Buddy to log 25 minutes of sleep (for [Child's Name])
 ```
 
 ### Diaper Change

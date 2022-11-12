@@ -193,6 +193,29 @@
                     ]
                 },
                 {
+                    "name": "RecordSleepIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.FirstName"
+                        },
+                        {
+                            "name": "Duration",
+                            "type": "AMAZON.DURATION"
+                         }
+                    ],
+                    "samples": [
+                        "record sleep for {Name}",
+                        "record sleep",
+                        "record {Duration} of sleep",
+                        "record {Duration} of sleep for {Name}",
+                        "log sleep",
+                        "log sleep {Name}",
+                        "log {Duration} of sleep",
+                        "log {Duration} of sleep for {Name}"
+                    ]
+                },
+                {
                     "name": "StartTummyTimeIntent",
                     "slots": [
                         {
@@ -716,6 +739,29 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "RecordSleepIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.FirstName",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "Duration",
+                            "type": "AMAZON.DURATION",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.443302079243.1371722513898"
+                            }
+                        }
+                    ]
                 }
             ],
             "delegationStrategy": "ALWAYS"
@@ -943,6 +989,15 @@
                     {
                         "type": "PlainText",
                         "value": "How long was the tummy time?"
+                    }
+                ]
+             },
+            {
+                "id": "Elicit.Slot.443302079243.1371722513898",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "How long did they sleep for?"
                     }
                 ]
              }

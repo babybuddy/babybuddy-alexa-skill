@@ -35,20 +35,19 @@ interface Feeding {
   amount: number;
 }
 
-interface TummyTimeBase {
-  child: string;
-}
-
-interface CreateTummyTimeFromTimer extends TummyTimeBase {
-  timer: string;
-}
-
-interface CreateTummyTimeFromStartAndEnd extends TummyTimeBase {
+interface Duration {
   start: string;
   end: string;
 }
 
-type CreateTummyTime = CreateTummyTimeFromTimer | CreateTummyTimeFromStartAndEnd;
+type TimerOrDuration = { timer: string } | Duration;
+
+type SimpleChildTimer = {
+  child: string;
+} & TimerOrDuration;
+
+type CreateSleep = SimpleChildTimer;
+type CreateTummyTime = SimpleChildTimer;
 
 interface Timer {
   id: string;
@@ -113,5 +112,6 @@ export {
   CloudflareZeroTrustSecret,
   Secret,
   URLS,
-  CreateTummyTime
+  CreateTummyTime,
+  CreateSleep,
 };

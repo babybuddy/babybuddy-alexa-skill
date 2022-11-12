@@ -119,3 +119,6 @@ ask-resources.json
 # Build
 .build
 build.zip
+
+# Emacs
+.dir-locals.el

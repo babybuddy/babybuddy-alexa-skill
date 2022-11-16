@@ -1,0 +1,21 @@
+name: ESLint
+
+on:
+  pull_request:
+    branches:
+      - "master"
+
+defaults:
+  run:
+    shell: bash
+    working-directory: lambda/custom
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+    - name: Run ESLint
+      run: yarn run lint-check

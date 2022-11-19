@@ -1,29 +1,26 @@
-import { getSlot } from 'ask-sdk-core';
-import { RequestEnvelope } from 'ask-sdk-model';
-
-import {
-  Timer,
-  Child,
-  babyBuddy,
-} from '../babybuddy';
+import { Timer, Child, babyBuddy } from "../babybuddy";
 
 enum TimerTypes {
-  FEEDING = 'feeding',
-  SLEEPING = 'sleeping',
-  TUMMY_TIME = 'tummy time',
+  FEEDING = "feeding",
+  SLEEPING = "sleeping",
+  TUMMY_TIME = "tummy time",
 }
 
-const getTimersForIdentifier: (identifier: string) => Promise<Timer[]> = async (identifier: string) => {
+const getTimersForIdentifier: (identifier: string) => Promise<Timer[]> = async (
+  identifier: string
+) => {
   const currentTimers = await babyBuddy.getActiveTimers();
-  return currentTimers.filter(timer => timer.name === identifier);
+  return currentTimers.filter((timer) => timer.name === identifier);
 };
 
-const getSelectedChild: (name: string) => Promise<Child | undefined> = async (name: string) => {
+const getSelectedChild: (name: string) => Promise<Child | undefined> = async (
+  name: string
+) => {
   const response = await babyBuddy.getChildren();
   const children = response.results;
 
   if (name) {
-    return children.find(child =>
+    return children.find((child) =>
       child.first_name.toLowerCase().includes(name.toLowerCase())
     );
   } else if (children.length === 1) {
@@ -33,8 +30,10 @@ const getSelectedChild: (name: string) => Promise<Child | undefined> = async (na
   }
 };
 
-const getMinutesFromDurationString: (duration: string) => number = (duration: string) => {
-  const [hourString, minuteString, secondString] = duration.split(':');
+const getMinutesFromDurationString: (duration: string) => number = (
+  duration: string
+) => {
+  const [hourString, minuteString, secondString] = duration.split(":");
   const minutes =
     parseInt(hourString) * 60 +
     parseInt(minuteString) +

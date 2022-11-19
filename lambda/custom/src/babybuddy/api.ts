@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 import {
   GetResponse,
@@ -11,7 +11,7 @@ import {
   URLS,
   CreateTummyTime,
   CreateSleep,
-} from './types';
+} from "./types";
 
 const fetchSecrets: () => Promise<Secret> = async () => {
   return new Promise((resolve, reject) => {
@@ -21,34 +21,41 @@ const fetchSecrets: () => Promise<Secret> = async () => {
         apiUrl: process.env.BABY_BUDDY_API_URL,
       };
 
-      if (process.env.CF_ACCESS_CLIENT_ID && process.env.CF_ACCESS_CLIENT_SECRET) {
+      if (
+        process.env.CF_ACCESS_CLIENT_ID &&
+        process.env.CF_ACCESS_CLIENT_SECRET
+      ) {
         secrets.cloudflare = {
           cfAccessClientId: process.env.CF_ACCESS_CLIENT_ID,
-          cfAccessClientSecret: process.env.CF_ACCESS_CLIENT_SECRET
-        }
+          cfAccessClientSecret: process.env.CF_ACCESS_CLIENT_SECRET,
+        };
       }
       resolve(secrets);
     } else {
-      reject('BABY_BUDDY_API_KEY and/or BABY_BUDDY_API_URL not defined!');
+      reject("BABY_BUDDY_API_KEY and/or BABY_BUDDY_API_URL not defined!");
     }
   });
 };
 
-const buildHeaders: (secrets: Secret) => Promise<{[headerName: string]: string}> = async (secrets) => {
+const buildHeaders: (
+  secrets: Secret
+) => Promise<{ [headerName: string]: string }> = async (secrets) => {
   return new Promise((resolve) => {
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Token ${secrets.apiKey}`,
+      "Content-Type": "application/json",
+      Authorization: `Token ${secrets.apiKey}`,
     };
 
     if (secrets.cloudflare) {
-      headers['CF-Access-Client-Id'] = `${secrets.cloudflare.cfAccessClientId}`;
-      headers['CF-Access-Client-Secret'] = `${secrets.cloudflare.cfAccessClientSecret}`;
+      headers["CF-Access-Client-Id"] = `${secrets.cloudflare.cfAccessClientId}`;
+      headers[
+        "CF-Access-Client-Secret"
+      ] = `${secrets.cloudflare.cfAccessClientSecret}`;
     }
 
     resolve(headers);
   });
-}
+};
 
 class BabyBuddyApi {
   async getRequest<T>(url: string): Promise<GetResponse<T>> {
@@ -57,7 +64,7 @@ class BabyBuddyApi {
     try {
       const response = await axios.get(url, {
         baseURL: secrets.apiUrl,
-        headers: await buildHeaders(secrets)
+        headers: await buildHeaders(secrets),
       });
       console.log(
         `getRequest(${url}), response: ${JSON.stringify(response.data)}`
@@ -75,7 +82,7 @@ class BabyBuddyApi {
     try {
       const response = await axios.post(url, body, {
         baseURL: secrets.apiUrl,
-        headers: await buildHeaders(secrets)
+        headers: await buildHeaders(secrets),
       });
       console.log(
         `postRequest(${url}, ${JSON.stringify(
@@ -99,7 +106,7 @@ class BabyBuddyApi {
     try {
       const response = await axios.delete(url, {
         baseURL: secrets.apiUrl,
-        headers: await buildHeaders(secrets)
+        headers: await buildHeaders(secrets),
       });
       console.log(
         `deleteRequest(${url}), response: ${JSON.stringify(response.data)}`
@@ -120,7 +127,7 @@ class BabyBuddyApi {
   async getActiveTimers(): Promise<Array<Timer>> {
     const response = await this.getTimers();
     const allTimers = response.results as Array<Timer>;
-    return allTimers.filter(timer => timer.active && timer.name);
+    return allTimers.filter((timer) => timer.active && timer.name);
   }
 
   async startTimer(name: string, childId: string) {
@@ -149,7 +156,7 @@ class BabyBuddyApi {
     const feedings: GetResponse<Feeding> = await this.getRequest(
       `${URLS.FEEDINGS}?child=${childId}&limit=1`
     );
-    const lastFeeding = feedings.results.find(x => x !== undefined);
+    const lastFeeding = feedings.results.find((x) => x !== undefined);
     return lastFeeding;
   }
 
@@ -177,6 +184,4 @@ class BabyBuddyApi {
 
 const babyBuddy = new BabyBuddyApi();
 
-export {
-  babyBuddy
-};
+export { babyBuddy };

@@ -3,23 +3,23 @@ import {
   getRequestType,
   getIntentName,
   getSlotValue,
-} from 'ask-sdk-core';
+} from "ask-sdk-core";
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
-import { babyBuddy } from '../babybuddy';
+import { babyBuddy } from "../babybuddy";
 
-import { getSelectedChild, getMinutesFromDurationString } from './helpers';
+import { getSelectedChild, getMinutesFromDurationString } from "./helpers";
 
 const LastFeedingIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
     return (
-      getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === 'LastFeedingIntent'
+      getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
+      getIntentName(handlerInput.requestEnvelope) === "LastFeedingIntent"
     );
   },
   async handle(handlerInput) {
-    const name = getSlotValue(handlerInput.requestEnvelope, 'Name');
+    const name = getSlotValue(handlerInput.requestEnvelope, "Name");
 
     console.log(`name: ${name}`);
 
@@ -30,7 +30,7 @@ const LastFeedingIntentHandler: RequestHandler = {
     if (!selectedChild) {
       return handlerInput.responseBuilder
         .speak(
-          'Please specify which child by saying, Ask Baby Buddy when did Jack eat last.'
+          "Please specify which child by saying, Ask Baby Buddy when did Jack eat last."
         )
         .getResponse();
     }
@@ -40,7 +40,7 @@ const LastFeedingIntentHandler: RequestHandler = {
     if (!lastFeeding) {
       return handlerInput.responseBuilder
         .speak(
-          'Please specify which child by saying, Ask Baby Buddy when did Jack eat last.'
+          "Please specify which child by saying, Ask Baby Buddy when did Jack eat last."
         )
         .getResponse();
     }
@@ -53,7 +53,7 @@ const LastFeedingIntentHandler: RequestHandler = {
 
     console.log(`startDate: ${JSON.stringify(startDate)}`);
 
-    const timeString = startDate.format('hh:mm A');
+    const timeString = startDate.format("hh:mm A");
 
     console.log(`timeString: ${timeString}`);
 
@@ -62,8 +62,10 @@ const LastFeedingIntentHandler: RequestHandler = {
     console.log(`minutes: ${minutes}`);
 
     let speakOutput = `${selectedChild.first_name} last started eating at ${timeString}`;
-    speakOutput += `, ate for ${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
-    speakOutput += `, and ate ${amount} ${amount === 1 ? 'ounce' : 'ounces'}.`;
+    speakOutput += `, ate for ${minutes} ${
+      minutes === 1 ? "minute" : "minutes"
+    }`;
+    speakOutput += `, and ate ${amount} ${amount === 1 ? "ounce" : "ounces"}.`;
 
     return handlerInput.responseBuilder
       .speak(speakOutput)

@@ -1,4 +1,4 @@
-import { getRequestType, getIntentName, RequestHandler } from 'ask-sdk-core';
+import { getRequestType, getIntentName, RequestHandler } from "ask-sdk-core";
 
 // The intent reflector is used for interaction model testing and debugging.
 // It will simply repeat the intent the user said. You can create custom handlers
@@ -6,7 +6,7 @@ import { getRequestType, getIntentName, RequestHandler } from 'ask-sdk-core';
 // handler chain below.
 const IntentReflectorHandler: RequestHandler = {
   canHandle(handlerInput) {
-    return getRequestType(handlerInput.requestEnvelope) === 'IntentRequest';
+    return getRequestType(handlerInput.requestEnvelope) === "IntentRequest";
   },
   handle(handlerInput) {
     const intentName = getIntentName(handlerInput.requestEnvelope);

@@ -3,23 +3,23 @@ import {
   getRequestType,
   getIntentName,
   getSlotValue,
-} from 'ask-sdk-core';
+} from "ask-sdk-core";
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
-import { babyBuddy } from '../babybuddy';
+import { babyBuddy } from "../babybuddy";
 
-import { getSelectedChild, getMinutesFromDurationString } from './helpers';
+import { getSelectedChild } from "./helpers";
 
 const TotalFeedingsIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
     return (
-      getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === 'TotalFeedingsIntent'
+      getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
+      getIntentName(handlerInput.requestEnvelope) === "TotalFeedingsIntent"
     );
   },
   async handle(handlerInput) {
-    const name = getSlotValue(handlerInput.requestEnvelope, 'Name');
+    const name = getSlotValue(handlerInput.requestEnvelope, "Name");
 
     console.log(`name: ${name}`);
 
@@ -30,7 +30,7 @@ const TotalFeedingsIntentHandler: RequestHandler = {
     if (!selectedChild) {
       return handlerInput.responseBuilder
         .speak(
-          'Please specify which child by saying, Ask Baby Buddy when did Jack eat last.'
+          "Please specify which child by saying, Ask Baby Buddy when did Jack eat last."
         )
         .getResponse();
     }
@@ -38,20 +38,24 @@ const TotalFeedingsIntentHandler: RequestHandler = {
     const response = await babyBuddy.getFeedings(selectedChild.id);
     const feedings = response.results;
 
-    const todaysFeedings = feedings.filter(feeding => {
+    const todaysFeedings = feedings.filter((feeding) => {
       const startDate = moment.parseZone(feeding.start);
       const endDate = moment.parseZone(feeding.end);
       const todaysDate = moment();
 
-      if (startDate.date() === todaysDate.date() &&
+      if (
+        startDate.date() === todaysDate.date() &&
         startDate.month() === todaysDate.month() &&
-        startDate.year() === todaysDate.year()) {
+        startDate.year() === todaysDate.year()
+      ) {
         return true;
       }
 
-      if (endDate.date() === todaysDate.date() &&
+      if (
+        endDate.date() === todaysDate.date() &&
         endDate.month() === todaysDate.month() &&
-        endDate.year() === todaysDate.year()) {
+        endDate.year() === todaysDate.year()
+      ) {
         return true;
       }
 
@@ -61,7 +65,7 @@ const TotalFeedingsIntentHandler: RequestHandler = {
     if (!todaysFeedings || todaysFeedings.length === 0) {
       return handlerInput.responseBuilder
         .speak(
-          `${selectedChild.first_name} doesn\'t currently have any feedings recorded today.`
+          `${selectedChild.first_name} doesn't currently have any feedings recorded today.`
         )
         .getResponse();
     }
@@ -80,9 +84,7 @@ const TotalFeedingsIntentHandler: RequestHandler = {
 
     if (!firstFeeding) {
       return handlerInput.responseBuilder
-        .speak(
-          'I had trouble identifying the first feeding of the day.'
-        )
+        .speak("I had trouble identifying the first feeding of the day.")
         .getResponse();
     }
 
@@ -90,10 +92,10 @@ const TotalFeedingsIntentHandler: RequestHandler = {
 
     console.log(`startDate: ${JSON.stringify(startDate)}`);
 
-    const timeString = startDate.format('hh:mm A');
+    const timeString = startDate.format("hh:mm A");
 
     let speakOutput = `Since ${timeString}, ${selectedChild.first_name} has eaten ${totalOunces}`;
-    speakOutput += ` ${totalOunces === 1 ? 'ounce' : 'ounces'}.`;
+    speakOutput += ` ${totalOunces === 1 ? "ounce" : "ounces"}.`;
 
     return handlerInput.responseBuilder
       .speak(speakOutput)

@@ -9,7 +9,7 @@
     "clean": "rimraf .build build.zip ../../.ask/lambda/custom",
     "compile": "tsc --build tsconfig.json --pretty",
     "build-final": "cpy package.json .build && cpy yarn.lock .build && cpy .env .build && cd .build/ && yarn install --production=true",
-    "lint-check": "eslint **/*.js **/*.ts",
+    "lint-check": "eslint '**/*.js' '**/*.ts'",
     "lint-fix": "yarn lint-check --fix",
     "build": "yarn clean && yarn compile && yarn build-final",
     "copy-build": "cpy build.zip ../../.ask/lambda/custom/.build",

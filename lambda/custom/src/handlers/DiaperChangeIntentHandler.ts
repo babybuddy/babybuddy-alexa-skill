@@ -5,26 +5,27 @@ import {
   getSlotValue,
   getDialogState,
   getRequest,
-} from 'ask-sdk-core';
+} from "ask-sdk-core";
 
-import { IntentRequest } from 'ask-sdk-model';
+import { IntentRequest } from "ask-sdk-model";
 
-import { babyBuddy, CreateDiaperChange } from '../babybuddy';
+import { babyBuddy, CreateDiaperChange } from "../babybuddy";
 
-import {
-  getSelectedChild,
-} from './helpers';
+import { getSelectedChild } from "./helpers";
 
 const DiaperChangeIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
     return (
-      getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      getIntentName(handlerInput.requestEnvelope) === 'RecordDiaperChangeIntent'
+      getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
+      getIntentName(handlerInput.requestEnvelope) === "RecordDiaperChangeIntent"
     );
   },
   async handle(handlerInput) {
-    if (getDialogState(handlerInput.requestEnvelope) !== 'COMPLETED') {
-      const contentsValue = getSlotValue(handlerInput.requestEnvelope, 'Contents');
+    if (getDialogState(handlerInput.requestEnvelope) !== "COMPLETED") {
+      const contentsValue = getSlotValue(
+        handlerInput.requestEnvelope,
+        "Contents"
+      );
 
       const request = getRequest<IntentRequest>(handlerInput.requestEnvelope);
       const intent = request.intent;
@@ -33,16 +34,16 @@ const DiaperChangeIntentHandler: RequestHandler = {
 
       if (contentsValue !== undefined) {
         if (intent && intent.slots) {
-          if (contentsValue == 'wet' || contentsValue == 'full') {
-            intent.slots.Wet.value = 'yes';
+          if (contentsValue == "wet" || contentsValue == "full") {
+            intent.slots.Wet.value = "yes";
           } else {
-            intent.slots.Wet.value = 'no';
+            intent.slots.Wet.value = "no";
           }
 
-          if (contentsValue == 'solid' || contentsValue == 'full') {
-            intent.slots.Solid.value = 'yes';
+          if (contentsValue == "solid" || contentsValue == "full") {
+            intent.slots.Solid.value = "yes";
           } else {
-            intent.slots.Solid.value = 'no';
+            intent.slots.Solid.value = "no";
           }
         }
 
@@ -58,60 +59,68 @@ const DiaperChangeIntentHandler: RequestHandler = {
         .getResponse();
     }
 
-    const shouldAddMoreDetails = getSlotValue(handlerInput.requestEnvelope, 'ShouldAddMoreDetails') === 'yes';
+    const shouldAddMoreDetails =
+      getSlotValue(handlerInput.requestEnvelope, "ShouldAddMoreDetails") ===
+      "yes";
 
     console.log(`shouldAddMoreDetails: ${shouldAddMoreDetails}`);
 
     if (shouldAddMoreDetails) {
       // Prompt each individual attribute individually now.
       // TODO: Maybe skip some of the questions depending on whether it's wet / solid / full / empty?
-      if (getSlotValue(handlerInput.requestEnvelope, 'Wet') === undefined) {
+      if (getSlotValue(handlerInput.requestEnvelope, "Wet") === undefined) {
         console.log("Prompting for wet value");
         return handlerInput.responseBuilder
           .speak("Was it wet?")
-          .addElicitSlotDirective('Wet')
+          .addElicitSlotDirective("Wet")
           .getResponse();
-      } else if (getSlotValue(handlerInput.requestEnvelope, 'Solid') === undefined) {
+      } else if (
+        getSlotValue(handlerInput.requestEnvelope, "Solid") === undefined
+      ) {
         console.log("Prompting for solid value");
         return handlerInput.responseBuilder
           .speak("Was it solid?")
-          .addElicitSlotDirective('Solid')
+          .addElicitSlotDirective("Solid")
           .getResponse();
-      } else if (getSlotValue(handlerInput.requestEnvelope, 'Color') === undefined) {
+      } else if (
+        getSlotValue(handlerInput.requestEnvelope, "Color") === undefined
+      ) {
         console.log("Prompting for color value");
         return handlerInput.responseBuilder
           .speak("Was it brown, black, green, or yellow?")
-          .addElicitSlotDirective('Color')
+          .addElicitSlotDirective("Color")
           .getResponse();
-      } else if (getSlotValue(handlerInput.requestEnvelope, 'Amount') === undefined) {
+      } else if (
+        getSlotValue(handlerInput.requestEnvelope, "Amount") === undefined
+      ) {
         console.log("Prompting for amount value");
         return handlerInput.responseBuilder
           .speak("How many ounces?")
-          .addElicitSlotDirective('Amount')
+          .addElicitSlotDirective("Amount")
           .getResponse();
       }
     }
 
-    let speakOutput = '';
+    let speakOutput = "";
 
-    const name = getSlotValue(handlerInput.requestEnvelope, 'Name');
+    const name = getSlotValue(handlerInput.requestEnvelope, "Name");
 
     console.log(`name: ${name}`);
 
-    const wetValue = getSlotValue(handlerInput.requestEnvelope, 'Wet');
-    const solidValue = getSlotValue(handlerInput.requestEnvelope, 'Solid');
+    const wetValue = getSlotValue(handlerInput.requestEnvelope, "Wet");
+    const solidValue = getSlotValue(handlerInput.requestEnvelope, "Solid");
 
     console.log(`wetValue: ${wetValue}`);
     console.log(`solidValue: ${solidValue}`);
 
-    const wet = wetValue === 'yes';
-    const solid = solidValue === 'yes';
+    const wet = wetValue === "yes";
+    const solid = solidValue === "yes";
 
     console.log(`wet: ${wet}`);
     console.log(`solid: ${solid}`);
 
-    const color = getSlotValue(handlerInput.requestEnvelope, 'Color');
-    const amountString = getSlotValue(handlerInput.requestEnvelope, 'Amount');
+    const color = getSlotValue(handlerInput.requestEnvelope, "Color");
+    const amountString = getSlotValue(handlerInput.requestEnvelope, "Amount");
 
     console.log(`color: ${color}`);
     console.log(`amountString: ${amountString}`);
@@ -121,7 +130,7 @@ const DiaperChangeIntentHandler: RequestHandler = {
     if (!selectedChild) {
       return handlerInput.responseBuilder
         .speak(
-          'Please specify which child by saying, Ask Baby Buddy to record diaper change for Jack.'
+          "Please specify which child by saying, Ask Baby Buddy to record diaper change for Jack."
         )
         .getResponse();
     }
@@ -131,7 +140,7 @@ const DiaperChangeIntentHandler: RequestHandler = {
     const payload: CreateDiaperChange = {
       child: selectedChild.id,
       wet,
-      solid
+      solid,
     };
 
     if (shouldAddMoreDetails) {
@@ -139,9 +148,9 @@ const DiaperChangeIntentHandler: RequestHandler = {
 
       let amount = 0;
 
-      if (amountString === '?') {
+      if (amountString === "?") {
         speakOutput +=
-          '  I had trouble recording the amount.  Please update the value through the web interface.';
+          "  I had trouble recording the amount.  Please update the value through the web interface.";
         amount = 0;
       } else {
         amount = parseInt(amountString);

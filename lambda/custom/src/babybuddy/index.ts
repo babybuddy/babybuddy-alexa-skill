@@ -1,4 +1,4 @@
-export { babyBuddy } from './api';
+export { babyBuddy } from "./api";
 
 export {
   GetResponse,
@@ -12,4 +12,4 @@ export {
   URLS,
   CreateTummyTime,
   SimpleChildTimer,
-} from './types';
+} from "./types";

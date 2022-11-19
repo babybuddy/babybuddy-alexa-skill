@@ -5,38 +5,45 @@ import {
   getSlotValue,
   getDialogState,
   getRequest,
-  HandlerInput
-} from 'ask-sdk-core';
+  HandlerInput,
+} from "ask-sdk-core";
 
-import { IntentRequest, Response } from 'ask-sdk-model';
+import { IntentRequest, Response } from "ask-sdk-model";
 
-import { babyBuddy, Child, Timer } from '../babybuddy';
+import { babyBuddy, Child, Timer } from "../babybuddy";
 
 import {
   TimerTypes,
   getTimersForIdentifier,
   getSelectedChild,
-} from './helpers';
+} from "./helpers";
 
 enum FeedingType {
-  FORMULA = 'formula',
-  BREAST_MILK = 'breast milk',
-  FORTIFIED_BREAST_MILK = 'fortified breast milk'
+  FORMULA = "formula",
+  BREAST_MILK = "breast milk",
+  FORTIFIED_BREAST_MILK = "fortified breast milk",
 }
 
 enum FeedingMethod {
-  BOTTLE = 'bottle',
-  LEFT_BREAST = 'left breast',
-  RIGHT_BREAST = 'right breast',
-  BOTH_BREASTS = 'both breasts'
+  BOTTLE = "bottle",
+  LEFT_BREAST = "left breast",
+  RIGHT_BREAST = "right breast",
+  BOTH_BREASTS = "both breasts",
 }
 
 type HandleDialogFunction = (handlerInput: HandlerInput) => Response;
-type StartFeedingFunction = (selectedChild: Child, selectedChildTimer: Timer | undefined) => Promise<string>;
-type StopFeedingFunction = (handlerInput: HandlerInput, selectedChild: Child, selectedChildTimer: Timer) => Promise<string>;
+type StartFeedingFunction = (
+  selectedChild: Child,
+  selectedChildTimer: Timer | undefined
+) => Promise<string>;
+type StopFeedingFunction = (
+  handlerInput: HandlerInput,
+  selectedChild: Child,
+  selectedChildTimer: Timer
+) => Promise<string>;
 
 const handleDialog: HandleDialogFunction = (handlerInput: HandlerInput) => {
-  const type = getSlotValue(handlerInput.requestEnvelope, 'Type');
+  const type = getSlotValue(handlerInput.requestEnvelope, "Type");
 
   if (type === FeedingType.FORMULA) {
     const request = getRequest<IntentRequest>(handlerInput.requestEnvelope);
@@ -51,13 +58,14 @@ const handleDialog: HandleDialogFunction = (handlerInput: HandlerInput) => {
       .getResponse();
   }
 
-  return handlerInput.responseBuilder
-    .addDelegateDirective()
-    .getResponse();
+  return handlerInput.responseBuilder.addDelegateDirective().getResponse();
 };
 
-const startFeeding: StartFeedingFunction = async (selectedChild, selectedChildTimer) => {
-  let speakOutput = '';
+const startFeeding: StartFeedingFunction = async (
+  selectedChild,
+  selectedChildTimer
+) => {
+  let speakOutput = "";
 
   if (selectedChildTimer) {
     speakOutput = `You already have a feeding started for ${selectedChild.first_name}`;
@@ -69,21 +77,25 @@ const startFeeding: StartFeedingFunction = async (selectedChild, selectedChildTi
   return speakOutput;
 };
 
-const stopFeeding: StopFeedingFunction = async (handlerInput: HandlerInput, selectedChild: Child, selectedChildTimer: Timer) => {
+const stopFeeding: StopFeedingFunction = async (
+  handlerInput: HandlerInput,
+  selectedChild: Child,
+  selectedChildTimer: Timer
+) => {
   let speakOutput = `Stopping feeding for ${selectedChild.first_name}.`;
   console.log(
     `requestEnvelope: ${JSON.stringify(handlerInput.requestEnvelope)}`
   );
 
-  const type = getSlotValue(handlerInput.requestEnvelope, 'Type');
-  const method = getSlotValue(handlerInput.requestEnvelope, 'Method');
+  const type = getSlotValue(handlerInput.requestEnvelope, "Type");
+  const method = getSlotValue(handlerInput.requestEnvelope, "Method");
 
   let amount = 0;
-  const amountString = getSlotValue(handlerInput.requestEnvelope, 'Amount');
+  const amountString = getSlotValue(handlerInput.requestEnvelope, "Amount");
 
-  if (amountString === '?') {
+  if (amountString === "?") {
     speakOutput +=
-      '  I had trouble recording the feeding amount.  Setting to 0.';
+      "  I had trouble recording the feeding amount.  Setting to 0.";
     amount = 0;
   } else {
     amount = parseInt(amountString);
@@ -107,38 +119,42 @@ const stopFeeding: StopFeedingFunction = async (handlerInput: HandlerInput, sele
 const FeedingIntentHandler: RequestHandler = {
   canHandle(handlerInput) {
     return (
-      getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
-      (getIntentName(handlerInput.requestEnvelope) === 'StartFeedingIntent' ||
-        getIntentName(handlerInput.requestEnvelope) === 'StopFeedingIntent')
+      getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
+      (getIntentName(handlerInput.requestEnvelope) === "StartFeedingIntent" ||
+        getIntentName(handlerInput.requestEnvelope) === "StopFeedingIntent")
     );
   },
   async handle(handlerInput) {
-    let speakOutput = '';
+    let speakOutput = "";
 
     const feedingTimers = await getTimersForIdentifier(TimerTypes.FEEDING);
 
-    const name = getSlotValue(handlerInput.requestEnvelope, 'Name');
+    const name = getSlotValue(handlerInput.requestEnvelope, "Name");
 
     const selectedChild = await getSelectedChild(name);
 
     if (!selectedChild) {
       return handlerInput.responseBuilder
         .speak(
-          'Please specify which child by saying, Ask Baby Buddy to start feeding for Jack.'
+          "Please specify which child by saying, Ask Baby Buddy to start feeding for Jack."
         )
         .getResponse();
     }
 
     const selectedChildTimer = feedingTimers.find(
-      timer => timer.child === selectedChild.id
+      (timer) => timer.child === selectedChild.id
     );
 
-    if (getIntentName(handlerInput.requestEnvelope) === 'StartFeedingIntent') {
+    if (getIntentName(handlerInput.requestEnvelope) === "StartFeedingIntent") {
       speakOutput = await startFeeding(selectedChild, selectedChildTimer);
-    } else if (getDialogState(handlerInput.requestEnvelope) !== 'COMPLETED') {
+    } else if (getDialogState(handlerInput.requestEnvelope) !== "COMPLETED") {
       return handleDialog(handlerInput);
     } else if (selectedChildTimer) {
-      speakOutput = await stopFeeding(handlerInput, selectedChild, selectedChildTimer);
+      speakOutput = await stopFeeding(
+        handlerInput,
+        selectedChild,
+        selectedChildTimer
+      );
     } else {
       speakOutput = `You don't have a feeding started for ${selectedChild.first_name}`;
     }
@@ -152,6 +168,4 @@ const FeedingIntentHandler: RequestHandler = {
   },
 };
 
-export {
-  FeedingIntentHandler
-};
+export { FeedingIntentHandler };

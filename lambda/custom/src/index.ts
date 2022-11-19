@@ -1,5 +1,5 @@
-import { SkillBuilders } from 'ask-sdk-core';
-import * as dotenv from 'dotenv';
+import { SkillBuilders } from "ask-sdk-core";
+import * as dotenv from "dotenv";
 
 const result = dotenv.config({ path: `${__dirname}/../.env` });
 
@@ -23,8 +23,8 @@ import {
   SleepIntentHandler,
   TotalFeedingsIntentHandler,
   TummyTimeIntentHandler,
-  RecordSimpleDurationIntentHandler
-} from './handlers';
+  RecordSimpleDurationIntentHandler,
+} from "./handlers";
 
 const handler = SkillBuilders.custom()
   .addRequestHandlers(

@@ -35,6 +35,16 @@ interface Feeding {
   amount: number;
 }
 
+interface DiaperChange {
+  id: number;
+  child: number;
+  time: string;
+  wet: boolean;
+  solid: boolean;
+  color: string | null;
+  amount: number | null;
+}
+
 interface Duration {
   start: string;
   end: string;
@@ -99,7 +109,6 @@ enum URLS {
   TUMMY_TIMES = "api/tummy-times/",
   WEIGHT = "api/weight/",
 }
-
 export {
   GetResponse,
   CreateFeeding,
@@ -115,4 +124,5 @@ export {
   CreateTummyTime,
   CreateSleep,
   SimpleChildTimer,
+  DiaperChange,
 };

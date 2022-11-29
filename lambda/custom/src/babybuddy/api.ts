@@ -11,6 +11,7 @@ import {
   URLS,
   CreateTummyTime,
   CreateSleep,
+  DiaperChange,
 } from "./types";
 
 const fetchSecrets: () => Promise<Secret> = async () => {
@@ -76,7 +77,7 @@ class BabyBuddyApi {
     }
   }
 
-  async postRequest(url: string, body: any) {
+  async postRequest(url: string, body) {
     const secrets = await fetchSecrets();
 
     try {
@@ -175,6 +176,28 @@ class BabyBuddyApi {
     };
 
     return await this.postRequest(URLS.DIAPER_CHANGES, body);
+  }
+
+  async getDiaperChanges(
+    childId: string,
+    start_time: string,
+    end_time: string
+  ): Promise<GetResponse<DiaperChange>> {
+    return await this.getRequest(
+      `${URLS.DIAPER_CHANGES}?child=${childId}&date_min=${start_time}&date_max=${end_time}`
+    );
+  }
+
+  async getLastDiaperChange(childId: string): Promise<DiaperChange | null> {
+    const diaperChange: GetResponse<DiaperChange> = await this.getRequest(
+      `${URLS.DIAPER_CHANGES}?child=${childId}&limit=1`
+    );
+
+    if (diaperChange.count === 0) {
+      return null;
+    }
+
+    return diaperChange.results[0];
   }
 
   async createTummyTime(tummyTime: CreateTummyTime) {

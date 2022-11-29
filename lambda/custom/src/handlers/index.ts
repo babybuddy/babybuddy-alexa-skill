@@ -12,6 +12,7 @@ import { SleepIntentHandler } from "./SleepIntentHandler";
 import { TotalFeedingsIntentHandler } from "./TotalFeedingsIntentHandler";
 import { TummyTimeIntentHandler } from "./TummyTimeIntentHandler";
 import { RecordSimpleDurationIntentHandler } from "./RecordSimpleDurationIntentHandler";
+import { LastDiaperChangeIntentHandler } from "./LastDiaperChangeIntentHandler";
 
 export {
   CancelAndStopIntentHandler,
@@ -28,4 +29,5 @@ export {
   TotalFeedingsIntentHandler,
   TummyTimeIntentHandler,
   RecordSimpleDurationIntentHandler,
+  LastDiaperChangeIntentHandler,
 };

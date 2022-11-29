@@ -24,6 +24,7 @@ import {
   TotalFeedingsIntentHandler,
   TummyTimeIntentHandler,
   RecordSimpleDurationIntentHandler,
+  LastDiaperChangeIntentHandler,
 } from "./handlers";
 
 const handler = SkillBuilders.custom()
@@ -40,6 +41,7 @@ const handler = SkillBuilders.custom()
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler,
     RecordSimpleDurationIntentHandler,
+    LastDiaperChangeIntentHandler,
     IntentReflectorHandler // make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
   )
   .addErrorHandlers(ErrorHandler)

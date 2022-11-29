@@ -320,6 +320,20 @@
                         "how many ounces today",
                         "how much has {Name} eaten today"
                     ]
+                },
+                {
+                    "name": "LastDiaperChangeIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.FirstName"
+                        }
+                    ],
+                    "samples": [
+                        "when is the last time {Name} had a diaper change",
+                        "when was the last diaper change",
+                        "when was the last diaper change for {Name}"
+                    ]
                 }
             ],
             "types": [
@@ -705,6 +719,20 @@
                 },
                 {
                     "name": "LastFeedingIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.FirstName",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                },
+                                {
+                    "name": "LastDiaperChangeIntent",
                     "confirmationRequired": false,
                     "prompts": {},
                     "slots": [

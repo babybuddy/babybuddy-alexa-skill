@@ -69,6 +69,12 @@ Alexa, ask Baby Buddy when was the last feeding (for [Child's Name])
 Alexa, ask Baby Buddy how much [Child's Name] has eaten today
 ```
 
+### Last Diaper Change
+```
+Alexa, ask Baby Buddy when the last diaper change was (for [Child's Name])
+Alexa, ask Baby Buddy when the last [wet, solid, full, empty] change was (for [Child's Name])
+```
+
 ## Dependencies
 
 ### NVM

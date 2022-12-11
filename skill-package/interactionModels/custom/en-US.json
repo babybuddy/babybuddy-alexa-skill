@@ -327,12 +327,21 @@
                         {
                             "name": "Name",
                             "type": "AMAZON.FirstName"
+                        },
+                        {
+                            "name": "Contents",
+                            "type": "DIAPER_CONTENT_TYPE",
+                            "samples": [
+                                "{Contents}"
+                            ]
                         }
                     ],
                     "samples": [
                         "when is the last time {Name} had a diaper change",
                         "when was the last diaper change",
-                        "when was the last diaper change for {Name}"
+                        "when was the last diaper change for {Name}",
+                        "when was the last {Contents} diaper change",
+                        "when was the last {Contents} diaper change for {Name}"
                     ]
                 }
             ],
@@ -742,7 +751,15 @@
                             "confirmationRequired": false,
                             "elicitationRequired": false,
                             "prompts": {}
+                        },
+                        {
+                            "name": "Contents",
+                            "type": "DIAPER_CONTENT_TYPE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
                         }
+
                     ]
                 },
                 {

@@ -21,6 +21,7 @@ const LastDiaperChangeIntentHandler: RequestHandler = {
 
   async handle(handlerInput) {
     const name = getSlotValue(handlerInput.requestEnvelope, "Name");
+    const contentsType = getSlotValue(handlerInput.requestEnvelope, "Contents");
 
     console.log(`name: ${name}`);
 
@@ -36,8 +37,28 @@ const LastDiaperChangeIntentHandler: RequestHandler = {
         .getResponse();
     }
 
+    let wetSearch: boolean | null = null;
+    let solidSearch: boolean | null = null;
+
+    if (contentsType !== undefined) {
+      if (contentsType === "wet" || contentsType === "full") {
+        wetSearch = true;
+      }
+
+      if (contentsType === "solid" || contentsType === "full") {
+        solidSearch = true;
+      }
+
+      if (contentsType === "empty") {
+        wetSearch = false;
+        solidSearch = false;
+      }
+    }
+
     const lastDiaperChange = await babyBuddy.getLastDiaperChange(
-      selectedChild.id
+      selectedChild.id,
+      wetSearch,
+      solidSearch
     );
 
     if (!lastDiaperChange) {

@@ -188,10 +188,22 @@ class BabyBuddyApi {
     );
   }
 
-  async getLastDiaperChange(childId: string): Promise<DiaperChange | null> {
-    const diaperChange: GetResponse<DiaperChange> = await this.getRequest(
-      `${URLS.DIAPER_CHANGES}?child=${childId}&limit=1`
-    );
+  async getLastDiaperChange(
+    childId: string,
+    wet: boolean | null,
+    solid: boolean | null
+  ): Promise<DiaperChange | null> {
+    let url = `${URLS.DIAPER_CHANGES}?child=${childId}&limit=1`;
+
+    if (wet !== null) {
+      url = url.concat(`&wet=${wet}`);
+    }
+
+    if (solid !== null) {
+      url = url.concat(`&solid=${solid}`);
+    }
+
+    const diaperChange: GetResponse<DiaperChange> = await this.getRequest(url);
 
     if (diaperChange.count === 0) {
       return null;

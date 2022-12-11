@@ -164,6 +164,8 @@
                         "{Action} diaper change",
                         "{Action} a {Contents} diaper change",
                         "{Action} a {Contents} diaper change for {Name}",
+                        "{Action} a {Contents} diaper",
+                        "{Action} a {Contents} diaper for {Name}",
                         "diaper change for {Name}",
                         "that {Name} went poopy",
                         "diaper change"

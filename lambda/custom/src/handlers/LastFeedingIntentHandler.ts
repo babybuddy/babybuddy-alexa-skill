@@ -65,7 +65,12 @@ const LastFeedingIntentHandler: RequestHandler = {
     speakOutput += `, ate for ${minutes} ${
       minutes === 1 ? "minute" : "minutes"
     }`;
-    speakOutput += `, and ate ${amount} ${amount === 1 ? "ounce" : "ounces"}.`;
+
+    if (amount !== null) {
+      speakOutput += `, and ate ${amount} ${
+        amount === 1 ? "ounce" : "ounces"
+      }.`;
+    }
 
     return handlerInput.responseBuilder
       .speak(speakOutput)

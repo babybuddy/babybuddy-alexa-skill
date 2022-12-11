@@ -465,7 +465,8 @@
                         {
                             "id": "solid",
                             "name": {
-                                "value": "solid"
+                                "value": "solid",
+                                "synonyms": ["poopy"]
                             }
                         },
                         {

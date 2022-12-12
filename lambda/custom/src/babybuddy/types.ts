@@ -32,7 +32,7 @@ interface Feeding {
   duration: "00:37:00";
   type: FeedingType;
   method: FeedingMethod;
-  amount: number;
+  amount: number | null;
 }
 
 interface DiaperChange {

@@ -48,7 +48,11 @@ Alexa, ask Baby Buddy to start sleeping (for [Child's Name])
 Alexa, ask Baby Buddy to stop sleeping (for [Child's Name])
 Alexa, ask Baby Buddy to record 15 minutes of sleep (for [Child's Name])
 Alexa, ask Baby Buddy to log 25 minutes of sleep (for [Child's Name])
+Alexa, ask Baby Buddy how long [Child's Name] has been awake
 ```
+Note: in order for the Alexa skill to know if your child is currently sleeping,
+the active timer tracking their sleep must have the name "sleeping".
+If you start the sleep session from the Alexa skill, the timer name will already be named correctly.
 
 ### Diaper Change
 

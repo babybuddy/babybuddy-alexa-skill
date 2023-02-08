@@ -92,6 +92,13 @@ interface CloudflareZeroTrustSecret {
   cfAccessClientSecret: string;
 }
 
+interface Sleep {
+  child: string;
+  duration: string;
+  start: string;
+  end: string;
+}
+
 interface Secret {
   apiKey: string;
   apiUrl: string;
@@ -125,4 +132,5 @@ export {
   CreateSleep,
   SimpleChildTimer,
   DiaperChange,
+  Sleep,
 };

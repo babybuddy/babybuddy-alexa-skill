@@ -99,6 +99,19 @@
                     ]
                 },
                 {
+                    "name": "WakeWindowIntent",
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.FirstName"
+                        }
+                    ],
+                    "samples": [
+                        "how long has {Name} been awake",
+                        "how long has {Name} been awake for"
+                    ]
+                },
+                {
                     "name": "RecordDiaperChangeIntent",
                     "slots": [
                         {
@@ -810,7 +823,24 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "WakeWindowIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "Name",
+                            "type": "AMAZON.FirstName",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.491193288216.955936429502"
+                            }
+                        }
+                    ]
                 }
+
             ],
             "delegationStrategy": "ALWAYS"
         },

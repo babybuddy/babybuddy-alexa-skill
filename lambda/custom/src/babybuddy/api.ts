@@ -12,6 +12,7 @@ import {
   CreateTummyTime,
   CreateSleep,
   DiaperChange,
+  Sleep,
 } from "./types";
 
 const fetchSecrets: () => Promise<Secret> = async () => {
@@ -210,6 +211,18 @@ class BabyBuddyApi {
     }
 
     return diaperChange.results[0];
+  }
+
+  async getLastSleep(childId: string): Promise<Sleep | null> {
+    const sleeps: GetResponse<Sleep> = await this.getRequest(
+      `${URLS.SLEEP}?child=${childId}&limit=1`
+    );
+
+    if (sleeps.count === 0) {
+      return null;
+    }
+
+    return sleeps.results[0];
   }
 
   async createTummyTime(tummyTime: CreateTummyTime) {

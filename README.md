@@ -106,6 +106,8 @@ yarn
 yarn setup # Will prompt for Baby Buddy URL and API key
 ```
 
+Note: By default, the skill will be deployed to `us-east-2`, which is in Ohio.  If you'd like to update the zone, edit the `ask-resources.json` file after running `yarn setup` and change `awsRegion` to the region of your choice.
+
 ### 2. Deploy
 
 The ask-cli deploy command will automatically create the skill on your AWS account and a lambda function.  This needs to be done first in order to get local development to work.

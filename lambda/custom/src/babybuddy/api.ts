@@ -129,7 +129,7 @@ class BabyBuddyApi {
   async getActiveTimers(): Promise<Array<Timer>> {
     const response = await this.getTimers();
     const allTimers = response.results as Array<Timer>;
-    return allTimers.filter((timer) => timer.active && timer.name);
+    return allTimers.filter((timer) => timer.name);
   }
 
   async startTimer(name: string, childId: string) {

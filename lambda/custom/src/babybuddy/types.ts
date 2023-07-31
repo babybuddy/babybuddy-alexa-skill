@@ -66,7 +66,6 @@ interface Timer {
   start: string;
   end: string;
   duration: string;
-  active: boolean;
   user: string;
 }
 

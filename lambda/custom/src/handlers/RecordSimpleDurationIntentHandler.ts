@@ -48,7 +48,7 @@ const RecordSimpleDurationIntentHandler: RequestHandler = {
         : "tummy time";
 
     const now = moment();
-    const beginning = now.subtract(duration);
+    const beginning = now.clone().subtract(duration);
 
     const name = getSlotValue(handlerInput.requestEnvelope, "Name");
 

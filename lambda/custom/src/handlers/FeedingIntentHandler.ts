@@ -98,7 +98,7 @@ const stopFeeding: StopFeedingFunction = async (
       "  I had trouble recording the feeding amount.  Setting to 0.";
     amount = 0;
   } else {
-    amount = parseInt(amountString);
+    amount = parseFloat(amountString);
   }
 
   console.log(

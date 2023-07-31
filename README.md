@@ -6,7 +6,7 @@ This is an Alexa skill to help supplement the [Baby Buddy](https://github.com/ba
 
 ### Minimum Baby Buddy version
 
-This skill requires Baby Buddy [v1.11.0](https://github.com/babybuddy/babybuddy/releases/tag/v1.11.0) or newer to allow for diaper changes without any contents.
+This skill requires Baby Buddy [v2.0.0](https://github.com/babybuddy/babybuddy/releases/tag/v2.0.0) or newer to allow for diaper changes without any contents.
 
 ## Usage
 
@@ -105,6 +105,8 @@ cd lambda/custom
 yarn
 yarn setup # Will prompt for Baby Buddy URL and API key
 ```
+
+Note: By default, the skill will be deployed to `us-east-2`, which is in Ohio.  If you'd like to update the zone, edit the `ask-resources.json` file after running `yarn setup` and change `awsRegion` to the region of your choice.
 
 ### 2. Deploy
 
